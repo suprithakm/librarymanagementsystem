@@ -15,50 +15,47 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	AdminDAO dao;
 	
-	@Autowired
-	RegexInfo regex;
+	
+	RegexInfo regex=new RegexInfo();
 
 	@Override
-	public boolean addStudent(Users user) {
+	public boolean addUser(Users user) {
 		if(regex.regexId(user.getUserId()) && regex.regexEmail(user.getEmailId()) && regex.regexName(user.getUserName())) {
-			return dao.addStudent(user);
+			return dao.addUser(user);
 		}else {
 			return false;
 		}
-	}//end of addStudent
+	}//end of addUser
 
 	@Override
-	public boolean updateStudent(Users user) {
+	public boolean updateUser(Users user) {
 		if(regex.regexId(user.getUserId()) && regex.regexEmail(user.getEmailId()) && regex.regexName(user.getUserName())) {
-			return dao.updateStudent(user);
+			return dao.updateUser(user);
 		}else {
 			return false;
 		}
-	}//end of updateStudent
+	}//end of updateUser
 
 	@Override
-	public boolean deleteStudent(String userId) {
+	public boolean deleteUser(String userId) {
 		if(regex.regexId(userId)) {
-			return dao.deleteStudent(userId);
+			return dao.deleteUser(userId);
 		}else {
 			return false;
 		}
-	}//end of deleteStudent
+	}//end of deleteUser
 
 	@Override
-	public List<Users> showAllStudent() {
-		return dao.showAllStudent();
+	public List<Users> showAllUser() {
+		return dao.showAllUser();
 	}
 
-	@Override
-	public List<Users> showLibrarian() {
-		return dao.showLibrarian();
-	}
+	
 
 	@Override
-	public Users searchStudentById(String userId) {
+	public Users searchUser(String userId) {
 		if(regex.regexId(userId)) {
-			return dao.searchStudentById(userId);
+			return dao.searchUser(userId);
 		}else {
 			return null;
 		}

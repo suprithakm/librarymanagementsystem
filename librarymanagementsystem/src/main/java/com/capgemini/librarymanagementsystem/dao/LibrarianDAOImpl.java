@@ -121,7 +121,8 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		String viewRegistrationDetails="from BooksRegistration";
 		Query query=entityManager.createQuery(viewRegistrationDetails);
 		
-		List<BooksRegistration> bookDetails=query.getResultList();
+		List<BooksRegistration> bookDetails=new ArrayList<BooksRegistration>();
+		bookDetails=query.getResultList();
 		return bookDetails;
 	}//end of showAllRequests
 
@@ -140,9 +141,12 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		
 		Random random=new Random();
 		int transactionId=random.nextInt();
+		if(transactionId<0) {
+			transactionId=transactionId*(-1);
+		}
 		
-		BooksTransaction trans=null;
-		trans.setRegistrationId(registrationId);
+		BooksTransaction trans=new BooksTransaction();
+		trans.setRegistrationId(bookDetails.getRegistrationId());
 		trans.setTransactionId(Integer.toString(transactionId));
 		trans.setIssueDate(bookDetails.getRegistrationDate());
 		trans.setFine(0.0);
@@ -172,11 +176,11 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		BooksTransaction book=(BooksTransaction)query.getSingleResult();
 		Date rtn=book.getReturnDate();
 		
-		long days=rtn.getTime()-returnDate.getTime();
+		int days=(int)((rtn.getTime()-returnDate.getTime())/(1000*60*60*24));
 		if(days<=0) {
 			book.setFine(0.0);
 		}else {
-			book.setFine(days*1);
+			book.setFine(days*1.0);
 		}
 		book.setReturnDate(returnDate);
 

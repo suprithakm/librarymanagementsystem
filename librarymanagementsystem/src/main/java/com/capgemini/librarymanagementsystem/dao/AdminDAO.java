@@ -6,12 +6,11 @@ import com.capgemini.librarymanagementsystem.beans.Users;
 
 public interface AdminDAO {
 
-	public boolean addStudent(Users user);
-	public boolean updateStudent(Users user);
-	public boolean deleteStudent(String userId);
+	public boolean addUser(Users user);
+	public boolean updateUser(Users user);
+	public boolean deleteUser(String userId);
 	
-	public List<Users> showAllStudent();
-	public List<Users> showLibrarian();
+	public List<Users> showAllUser();
 	
-	public Users searchStudentById(String userId);
+	public Users searchUser(String userId);
 }//end of AdminDAO

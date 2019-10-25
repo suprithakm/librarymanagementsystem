@@ -14,7 +14,7 @@ AdminDAO admin;
 	
 @Test
 void deleteCase1() {
-	boolean result=admin.deleteStudent("101");
+	boolean result=admin.deleteUser("101");
 	assertEquals(true, result);
 }
 	

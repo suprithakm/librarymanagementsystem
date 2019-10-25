@@ -63,13 +63,12 @@ public class CommonDAOImpl implements CommonDAO{
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		String selectQry="from BooksInventory";
 
-		Query query=entityManager.createQuery(selectQry);
+		
 		List<BooksInventory> bookList=null;
-		try {
+		Query query=entityManager.createQuery(selectQry);
+		
 			bookList = query.getResultList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 		entityManager.close();
 		return bookList;
 	}//end of showAllBooks

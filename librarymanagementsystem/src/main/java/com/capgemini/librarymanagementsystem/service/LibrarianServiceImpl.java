@@ -18,8 +18,8 @@ public class LibrarianServiceImpl implements LibrarianService{
 	@Autowired
 	LibrarianDAO dao;
 	
-	@Autowired
-	RegexInfo regex;
+	
+	RegexInfo regex=new RegexInfo();
 	
 	@Override
 	public boolean addBooks(BooksInventory books) {

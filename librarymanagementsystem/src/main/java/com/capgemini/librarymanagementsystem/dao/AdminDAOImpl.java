@@ -21,7 +21,7 @@ public class AdminDAOImpl implements AdminDAO{
 
 
 	@Override
-	public boolean addStudent(Users users) {
+	public boolean addUser(Users users) {
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
 		boolean isadded=false;
@@ -35,11 +35,11 @@ public class AdminDAOImpl implements AdminDAO{
 		}
 		entityManager.close();
 		return isadded;
-	}//end of add student
+	}//end of add User
 
 
 	@Override
-	public boolean updateStudent(Users users) {
+	public boolean updateUser(Users users) {
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
 		boolean isadded=false;
@@ -54,10 +54,10 @@ public class AdminDAOImpl implements AdminDAO{
 		}
 		entityManager.close();
 		return isadded;
-	}//end of update Student
+	}//end of update User
 
 	@Override
-	public boolean deleteStudent(String userId) {
+	public boolean deleteUser(String userId) {
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
 		try {
@@ -74,52 +74,34 @@ public class AdminDAOImpl implements AdminDAO{
 		}
 		entityManager.close();
 		return true;
-	}//end of deleteStudent
+	}//end of deleteUser
 
 
 
 	@Override
-	public List<Users> showAllStudent() {
+	public List<Users> showAllUser() {
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
 
 		String jpql="from Users where type='student'";
 		Query query=entityManager.createQuery(jpql);
 		List<Users> arraylist=new ArrayList<Users>();
-		List<Users> allStudent=null;
+		List<Users> allUser=null;
 		try {
-			allStudent=query.getResultList();
+			allUser=query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		entityManager.close();
-		return allStudent;
+		return allUser;
 
-	}//end of showAllStudent
+	}//end of showAllUser
 
-	@Override
-	public List<Users> showLibrarian() {
-		EntityManager entityManager=entityManagerFactory.createEntityManager();
-		EntityTransaction transaction=entityManager.getTransaction();
-
-		String jpql="from Users where type='librarian'";
-		Query query=entityManager.createQuery(jpql);
-		List<Users> arraylist=new ArrayList<Users>();
-		List<Users> allLibrarian=null;
-		try {
-			allLibrarian=query.getResultList();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		entityManager.close();
-		return allLibrarian;
-
-	}//end of showLibrarian
 
 
 
 	@Override
-	public Users searchStudentById(String userId) {
+	public Users searchUser(String userId) {
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		Users user=null;
 		user=entityManager.find(Users.class, userId);
@@ -129,7 +111,7 @@ public class AdminDAOImpl implements AdminDAO{
 		}
 		entityManager.close();
 		return user;
-	}//end of search student
+	}//end of search User
 
 
 

@@ -14,8 +14,8 @@ public class StudentServiceImpl implements StudentService{
 	@Autowired
 	StudentDAO dao;
 	
-	@Autowired
-	RegexInfo regex;
+	
+	RegexInfo regex=new RegexInfo();
 	
 	@Override
 	public BooksRegistration requestBook(BooksInventory books, String userId) {
@@ -24,11 +24,9 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public boolean cancelRequest(String registrationId, String userId) {
-		if(regex.regexId(userId) && regex.regexId(registrationId)) {
+	
 			return dao.cancelRequest(registrationId, userId);
-		}else {
-			return false;
-		}
+		
 	}
 
 }

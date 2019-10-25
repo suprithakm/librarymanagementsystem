@@ -3,8 +3,10 @@ package com.capgemini.librarymanagementsystem.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,7 @@ import com.capgemini.librarymanagementsystem.service.CommonService;
 import com.capgemini.librarymanagementsystem.utility.Response;
 
 @RestController
+@CrossOrigin(origins="*", allowedHeaders="*",allowCredentials="true")
 public class AdminController {
 
 	@Autowired
@@ -26,54 +29,43 @@ public class AdminController {
 	@Autowired
 	AdminService admin;
 	
-	@PostMapping("login")
-	public Users login(String userId,String password) {
-		Response response=new Response();
+	@GetMapping("login/{userId}/{password}")
+	public Users login(@PathVariable(name="userId") String userId,@PathVariable(name="password") String password) {
 		Users users=common.login(userId, password);
 		return users;
 	}//end of login
 	
-	@PostMapping("addStudent")
-	public Response addStudent(@RequestBody Users user) {
-		Response response=new Response();
-		if(admin.addStudent(user)) {
-			response.setStatusCode(201);
-			response.setMessage("success");
+	@PostMapping("addUser")
+	public boolean addUser(@RequestBody Users user) {
+		if(admin.addUser(user)) {
+			return true;
 		}else {
-			response.setStatusCode(401);
-			response.setMessage("failure");
-		}return response;
-		
-	}//end of addStudent
+			return false;
+		}
+	}//end of addUser
 	
 	
 	
-	@PutMapping("updateStudent")
-	public Response updateStudent(@RequestBody Users user) {
-		Response response=new Response();
-		if(admin.updateStudent(user)) {
-			response.setStatusCode(201);
-			response.setMessage("success");
+	@PutMapping("updateUser")
+	public boolean updateUser(@RequestBody Users user) {
+		if(admin.updateUser(user)) {
+			return true;
 		}else {
-			response.setStatusCode(401);
-			response.setMessage("failure");
-		}return response;
-		
-	}//end of updateStudent
+			return false;
+		}		
+	}//end of updateUser
 	
 	
-	@DeleteMapping("deleteStudent")
-	public Response deleteStudent(String userId) {
+	@DeleteMapping("deleteUser")
+	public boolean deleteUser(String userId) {
 		Response response=new Response();
-		if(admin.deleteStudent(userId)) {
-			response.setStatusCode(201);
-			response.setMessage("success");
+		if(admin.deleteUser(userId)) {
+			return true;
 		}else {
-			response.setStatusCode(401);
-			response.setMessage("failure");
-		}return response;
+			return false;
+		}
 		
-	}//end of delete Student
+	}//end of delete User
 	
 	@GetMapping("searchBooks")
 	@ResponseBody
@@ -90,28 +82,20 @@ public class AdminController {
 		return bookList;
 	}//end of showAllBooks
 	
-	@GetMapping("showAllStudent")
+	@GetMapping("showAllUser")
 	@ResponseBody
 	public List<Users> showAllStd() {
-		List<Users> usersList=admin.showAllStudent();
+		List<Users> usersList=admin.showAllUser();
 		return usersList;
-	}//end of showAllstudent
+	}//end of showAllUser
 	
 	
-	@GetMapping("showLibrarian")
+	@GetMapping("searchUser")
 	@ResponseBody
-	public List<Users> showLib() {
-		List<Users> usersList=admin.showLibrarian();
-		return usersList;
-	}//end of showLibrarian
-	
-	
-	@GetMapping("searchStudentById")
-	@ResponseBody
-	public Users searchStudent(String userId) {
-		Users users=admin.searchStudentById(userId);
+	public Users searchUser(String userId) {
+		Users users=admin.searchUser(userId);
 		return users;
-	}//end of searchStudentById
+	}//end of searchUserById
 	
 	
 }//end of AdminController

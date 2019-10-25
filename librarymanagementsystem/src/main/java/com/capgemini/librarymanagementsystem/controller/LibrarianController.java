@@ -1,10 +1,16 @@
 package com.capgemini.librarymanagementsystem.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,58 +24,55 @@ import com.capgemini.librarymanagementsystem.service.LibrarianService;
 import com.capgemini.librarymanagementsystem.utility.Response;
 
 @RestController
+@CrossOrigin(origins="*", allowedHeaders="*",allowCredentials="true")
 public class LibrarianController {
 
 	@Autowired
 	LibrarianService librarian;
+
+	public void InitBinder(WebDataBinder binder) {
+		CustomDateEditor dateEditor=new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+		binder.registerCustomEditor(Date.class,dateEditor);
+	}
 	
 	@PostMapping("addBooks")
-	public Response addBook(@RequestBody BooksInventory book) {
-		Response response=new Response();
+	public boolean addBook(@RequestBody BooksInventory book) {
 		if(librarian.addBooks(book)) {
-			response.setStatusCode(201);
-			response.setMessage("success");
+			return true;
 		}else {
-			response.setStatusCode(401);
-			response.setMessage("failure");
-		}return response;
-		
+			return false;
+		}
+
 	}//end of addBooks
-	
+
 	@PutMapping("updateBooks")
-	public Response updateBooks(@RequestBody BooksInventory book) {
-		Response response=new Response();
+	public boolean updateBooks(@RequestBody BooksInventory book) {
 		if(librarian.updateBooks(book)) {
-			response.setStatusCode(201);
-			response.setMessage("success");
+			return true;
 		}else {
-			response.setStatusCode(401);
-			response.setMessage("failure");
-		}return response;
-		
+			return false;
+		}
+
 	}//end of updateBooks
-	
+
 	@DeleteMapping("deleteBooks")
-	public Response deleteBooks(String bookId) {
-		Response response=new Response();
+	public boolean deleteBooks(String bookId) {
 		if(librarian.deleteBooks(bookId)) {
-			response.setStatusCode(201);
-			response.setMessage("success");
+			return true;
 		}else {
-			response.setStatusCode(401);
-			response.setMessage("failure");
-		}return response;
-		
+			return false;
+		}
+
 	}//end of deleteBooks
-	
+
 	@GetMapping("showAllIssuedBooks")
 	@ResponseBody
-	public List<BooksTransaction> showAllIssusedBook(String userId) {
+	public List<BooksTransaction> showAllIssuedBook(String userId) {
 		List<BooksTransaction> bookList=librarian.showAllIssuedBooks(userId);
 		return bookList;
 	}//end of showAllIssuedBooks
-	
-	
+
+
 
 	@GetMapping("showAllRequests")
 	@ResponseBody
@@ -77,4 +80,20 @@ public class LibrarianController {
 		List<BooksRegistration> bookList=librarian.showAllRequests();
 		return bookList;
 	}//end of showAllRequests
+	
+	
+	@GetMapping("acceptRequest/{registrationId}")
+	@ResponseBody
+	public BooksTransaction acceptReq(@PathVariable(name="registrationId") String registrationId) {
+		BooksTransaction trans=librarian.acceptRequest(registrationId);
+		return trans;
+	}//end of acceptRequest
+	
+	
+	@GetMapping("addFine/{registrationId}/{returnDate}")
+	@ResponseBody
+	public BooksTransaction addFinee(@PathVariable(name="registrationId") String registrationId,@PathVariable(name="returnDate") Date returnDate) {
+		BooksTransaction trans=librarian.addFine(registrationId,returnDate);
+		return trans;
+	}//end of acceptRequest
 }

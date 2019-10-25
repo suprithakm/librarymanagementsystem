@@ -16,8 +16,8 @@ public class CommonServiceImpl implements CommonService{
 	@Autowired
 	CommonDAO dao;
 	
-	@Autowired
-	RegexInfo regex;
+	
+	RegexInfo regex=new RegexInfo();
 	
 	@Override
 	public Users login(String user_id, String password) {
