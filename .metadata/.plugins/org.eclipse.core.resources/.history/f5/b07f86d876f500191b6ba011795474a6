@@ -1,0 +1,70 @@
+package com.capgemini.librarymanagementsystem.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.capgemini.librarymanagementsystem.beans.Users;
+import com.capgemini.librarymanagementsystem.dao.AdminDAO;
+
+@Service
+public class AdminServiceImpl implements AdminService{
+
+	@Autowired
+	AdminDAO dao;
+
+	@Override
+	public Users login(int user_id, String password) {
+		return dao.login(user_id, password);
+	}
+
+	@Override
+	public boolean addStudent(Users user) {
+		return dao.addStudent(user);
+	}
+
+	@Override
+	public boolean updateStudent(Users user) {
+		return dao.updateStudent(user);
+	}
+
+	@Override
+	public boolean deleteStudent(int user_id) {
+		return dao.deleteStudent(user_id);
+	}
+
+	@Override
+	public boolean addLibrarian(Users user) {
+		return dao.addLibrarian(user);
+	}
+
+	@Override
+	public boolean updateLibrarian(Users user) {
+		return dao.updateLibrarian(user);
+	}
+
+	@Override
+	public boolean deleteLibrarian(int user_id) {
+		return dao.deleteLibrarian(user_id);
+	}
+
+	@Override
+	public List<Users> showAllStudent() {
+		return dao.showAllStudent();
+	}
+
+	@Override
+	public List<Users> showLibrarian() {
+		return dao.showLibrarian();
+	}
+
+	@Override
+	public Users searchStudentById(String email_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}//end of AdminServiceImpl

@@ -1,0 +1,41 @@
+package com.capgemini.librarymanagementsystem.service;
+
+import java.util.List;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.BooksRegistration;
+import com.capgemini.librarymanagementsystem.beans.BooksTransaction;
+
+public class LibrarianServiceImpl implements LibrarianService{
+
+	@Override
+	public boolean addBooks(BooksInventory books) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateBooks(BooksInventory books) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteBooks(int book_id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<BooksTransaction> showAllIssuedBooks(int user_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BooksRegistration> showAllRequests() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,19 @@
+package com.capgemini.librarymanagementsystem.service;
+
+import java.util.List;
+
+import com.capgemini.librarymanagementsystem.beans.Users;
+
+public interface AdminService {
+
+	
+	public boolean addStudent(Users user);
+	public boolean updateStudent(Users user);
+	public boolean deleteStudentint user_id);
+	
+	public boolean add(Users user);
+	public boolean updateUsers(Users user);
+	public boolean deleteUsers(int user_id);
+	public List<Users> showAll(String type);
+	public Users searchUser(String email_id);
+}//end of AdminService

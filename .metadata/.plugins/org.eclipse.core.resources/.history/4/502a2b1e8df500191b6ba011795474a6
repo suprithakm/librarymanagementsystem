@@ -1,0 +1,16 @@
+package com.capgemini.librarymanagementsystem.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.capgemini.librarymanagementsystem.dao.CommonDAO;
+import com.capgemini.librarymanagementsystem.service.CommonService;
+import com.capgemini.librarymanagementsystem.utility.Response;
+
+@Controller
+public class AdminController {
+
+	@Autowired
+	CommonService serviceCommon;
+	
+}

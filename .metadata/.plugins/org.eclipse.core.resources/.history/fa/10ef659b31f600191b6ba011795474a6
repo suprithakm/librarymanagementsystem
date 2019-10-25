@@ -1,0 +1,53 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.BooksRegistration;
+import com.capgemini.librarymanagementsystem.beans.BooksTransaction;
+
+@Repository
+public class StudentDAOImpl implements StudentDAO{
+
+	@PersistenceUnit
+	EntityManagerFactory entityManagerFactory;
+	
+	@Override
+	public BooksRegistration requestBook(BooksInventory books, String userId, String registrationId) {
+		
+		/*
+		 * EntityManager entityManager=entityManagerFactory.createEntityManager();
+		 * 
+		 * String viewBookDetails="from BooksInventory where bookId =: bookId"; Query
+		 * query=entityManager.createQuery(viewBookDetails);
+		 * query.setParameter("bookId", books.getBookId());
+		 * 
+		 * BooksInventory book=(BooksInventory) query.getSingleResult();
+		 * 
+		 * String
+		 * addRegistration="from BooksTransaction where registrationId =: registrationId"
+		 * ; query=entityManager.createQuery(viewTransaction); List<BooksTransaction>
+		 * bookTransactions;
+		 * 
+		 * List<BooksTransaction> resultSet=new ArrayList<BooksTransaction>();
+		 * 
+		 * if(bookDetails.size()>0) { for(BooksRegistration registration:bookDetails) {
+		 * query.setParameter("registrationId", registration.getRegistrationId());
+		 * bookTransactions=query.getResultList(); resultSet.addAll(bookTransactions); }
+		 * }
+		 */
+		 
+		return null;
+	}//end of requestBook
+
+	
+
+}//end of StudentDAOImpl

@@ -1,0 +1,45 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.Users;
+
+@Repository
+public class CommonDAOImpl implements CommonDAO{
+
+	@PersistenceUnit
+	EntityManagerFactory entityManagerFactory;
+	
+	@Override
+	public Users login(int user_id, String password) {
+	
+	EntityManager entityManager=entityManagerFactory.createEntityManager();
+	String selectQry="from USERS where user_id =: user_id and password =: password";
+	EntityTransaction transaction=entityManager.getTransaction();
+	Query query=entityManager.createQuery(selectQry);
+	query.setParameter("user_id", user_id);
+		return null;
+	}
+
+	@Override
+	public List<BooksInventory> searchBooks(String book_name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BooksInventory> showAllBooks() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}//end of CommonDAO

@@ -1,0 +1,62 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.BooksRegistration;
+import com.capgemini.librarymanagementsystem.beans.BooksTransaction;
+
+@Repository
+public class LibrarianDAOImpl implements LibrarianDAO{
+
+	@Override
+	public boolean addBooks(BooksInventory books) {
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		EntityTransaction transaction=entityManager.getTransaction();
+		transaction.begin();
+		boolean isAdded=false;
+		try {
+			Login exits=entityManager.find(Login.class, user.getId());
+			if(exits==null) {
+				entityManager.persist(user);
+				transaction.commit();
+				isAdded=true;
+			}else {
+				isAdded=false;
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		entityManager.close();
+		return isAdded;
+		
+	}
+
+	@Override
+	public boolean updateBooks(BooksInventory books) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteBooks(int book_id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<BooksTransaction> showAllIssuedBooks(int user_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<BooksRegistration> showAllRequests() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,7 @@
+package com.capgemini.librarymanagementsystem.service;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+
+public interface StudentService {
+
+}

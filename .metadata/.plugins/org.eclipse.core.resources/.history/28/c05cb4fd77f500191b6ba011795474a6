@@ -1,0 +1,15 @@
+package com.capgemini.librarymanagementsystem.service;
+
+import org.springframework.stereotype.Service;
+
+import com.capgemini.librarymanagementsystem.beans.Users;
+
+@Service
+public class CommonServiceImpl implements CommonService{
+
+	@Override
+	public Users login(int user_id, String password) {
+		return 
+	}
+
+}

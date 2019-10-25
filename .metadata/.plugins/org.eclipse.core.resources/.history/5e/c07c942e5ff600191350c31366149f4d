@@ -1,0 +1,18 @@
+package com.capgemini.librarymanagementsystem.test;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.capgemini.librarymanagementsystem.dao.AdminDAO;
+
+public class AdminTestCases {
+
+@Autowired
+AdminDAO admin;
+	
+	@Test
+	public void list() {
+		
+	}
+	
+}

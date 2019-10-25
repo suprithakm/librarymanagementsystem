@@ -1,0 +1,13 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+
+public class StudentDAOImpl implements StudentDAO{
+
+	@Override
+	public BooksInventory requestBook(BooksInventory books) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

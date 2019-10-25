@@ -1,0 +1,15 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import java.util.List;
+
+import com.capgemini.librarymanagementsystem.beans.Users;
+
+public interface AdminDAO {
+
+	public boolean addUsers(Users user);
+	public boolean updateUSer(Users user);
+	public boolean deleteUsers(int user_id);
+	public List<Users> showAllUsers();
+	public List<Users> showLibrarian();
+	public Users searchUserByEmail(String email_id);
+}

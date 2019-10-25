@@ -1,0 +1,19 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import org.springframework.stereotype.Repository;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.BooksRegistration;
+
+@Repository
+public class StudentDAOImpl implements StudentDAO{
+
+	@Override
+	public BooksRegistration requestBook(BooksInventory books, String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+}

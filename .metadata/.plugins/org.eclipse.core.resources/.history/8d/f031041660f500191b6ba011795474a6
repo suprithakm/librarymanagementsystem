@@ -1,0 +1,20 @@
+package com.capgemini.librarymanagementsystem.config;
+
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
+
+@Configuration
+public class JPAConfig {
+
+	@Bean
+	public LocalEntityManagerFactoryBean getEMF() {
+	//when we integrate spring with hibernate we have to use some inbuilt class
+	//is called localEntityManagerFactoryBean
+	LocalEntityManagerFactoryBean factoryBean=new LocalEntityManagerFactoryBean();
+	factoryBean.setPersistenceUnitName("employeePersistenceUnit");
+	return factoryBean;
+		
+	}//end of getEMF
+}//end of class

@@ -1,0 +1,155 @@
+package com.capgemini.librarymanagementsystem.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.Users;
+import com.capgemini.librarymanagementsystem.service.AdminService;
+import com.capgemini.librarymanagementsystem.service.CommonService;
+import com.capgemini.librarymanagementsystem.utility.Response;
+
+@RestController
+public class AdminController {
+
+	@Autowired
+	CommonService coomon;
+	
+	@Autowired
+	AdminService admin;
+	
+	@PostMapping("login")
+	public Response login(String userId,String password) {
+		Response response=new Response();
+		Users users=common.login(userId, password);
+		if(users!=null) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+			response.setUsers(users);
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of login
+	
+	@PostMapping("addStudent")
+	public Response addStudent(@RequestBody Users user) {
+		Response response=new Response();
+		if(admin.addStudent(user)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of addStudent
+	
+	@PostMapping("addLibrarian")
+	public Response addLibrarian(@RequestBody Users user) {
+		Response response=new Response();
+		if(admin.addLibrarian(user)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of addLibrarian
+	
+	
+	@PostMapping("updateStudent")
+	public Response updateStudent(@RequestBody Users user) {
+		Response response=new Response();
+		if(admin.updateStudent(user)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of updateStudent
+	
+	@PostMapping("updateLibrarian")
+	public Response updateLibrarian(@RequestBody Users user) {
+		Response response=new Response();
+		if(admin.updateLibrarian(user)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of updateLibraraian
+	
+	@PostMapping("deleteStudent")
+	public Response deleteStudent(String userId) {
+		Response response=new Response();
+		if(admin.deleteStudent(userId)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of delete Student
+	
+	@PostMapping("deleteLibrarian")
+	public Response deleteLibrarian(String userId) {
+		Response response=new Response();
+		if(admin.deleteLibrarian(userId)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of delete Libraraian
+	
+	
+	@GetMapping("/searchBooks")
+	@ResponseBody
+	public Response searchBooks(String bookName) {
+		Response response=new Response();
+		List<BooksInventory> bookList=service.searchBooks(bookName);
+		if(bookList!=null) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setbInventories(bookList);
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+		}
+		return response;
+	}//end of searchBooks
+
+
+	@GetMapping("/showAllBooks")
+	@ResponseBody
+	public Response showAllBooks() {
+		Response response=new Response();
+		List<BooksInventory> bookList=service.showAllBooks();
+		if(bookList!=null) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setbInventories(bookList);
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+		}
+		return response;
+	}//end of showAllBooks
+	
+}//end of AdminController

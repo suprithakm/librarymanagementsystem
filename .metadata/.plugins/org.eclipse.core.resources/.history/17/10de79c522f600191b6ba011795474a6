@@ -1,0 +1,85 @@
+package com.capgemini.librarymanagementsystem.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.BooksRegistration;
+import com.capgemini.librarymanagementsystem.beans.BooksTransaction;
+import com.capgemini.librarymanagementsystem.beans.Users;
+import com.capgemini.librarymanagementsystem.service.LibrarianService;
+import com.capgemini.librarymanagementsystem.utility.Response;
+
+@RestController
+public class LibrarianController {
+
+	@Autowired
+	LibrarianService librarian;
+	
+	@PostMapping("addBooks")
+	public Response addBooks(@RequestBody BooksInventory book) {
+		Response response=new Response();
+		if(librarian.addBooks(book)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of addBooks
+	
+	@PostMapping("updateBooks")
+	public Response updateBooks(@RequestBody BooksInventory book) {
+		Response response=new Response();
+		if(librarian.updateBooks(book)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of updateBooks
+	
+	@PostMapping("deleteBooks")
+	public Response deleteBooks(String bookId) {
+		Response response=new Response();
+		if(librarian.deleteBooks(bookId)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of deleteBooks
+	
+	@GetMapping("/showAllIssuedBooks")
+	@ResponseBody
+	public List<BooksTransaction> showAllIssusedBook(String userId) {
+		Response response=new Response();
+		List<BooksTransaction> bookList=librarian.showAllIssuedBooks(userId);
+		return bookList;
+	}//end of showAllIssuedBooks
+	
+	
+
+	@GetMapping("/showAllRequests")
+	@ResponseBody
+	public List<BooksRegistration> showAllRequest() {
+		Response response=new Response();
+		List<BooksRegistration> bookList=librarian.showAllRequests();
+		return bookList;
+	}//end of showAllRequests
+}

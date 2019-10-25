@@ -1,0 +1,8 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import com.capgemini.librarymanagementsystem.beans.Users;
+
+public interface CommonDAO {
+
+	public Users login(int user_id, String password);
+}

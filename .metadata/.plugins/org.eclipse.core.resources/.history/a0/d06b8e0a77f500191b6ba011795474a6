@@ -1,0 +1,14 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.capgemini.librarymanagementsystem.beans.Users;
+
+@Repository
+public class AdminDAOImpl implements AdminDAO{
+
+	
+
+}//end of AdminDAOImpl

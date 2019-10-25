@@ -1,0 +1,81 @@
+package com.capgemini.librarymanagementsystem.beans;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class BooksInventory {
+
+	@Id
+	@Column
+	@GeneratedValue
+	private int book_id;
+	
+	@Column
+	private String book_name;
+	
+	@Column
+	private String author1;
+	
+	@Column
+	private String author2;
+	
+	@Column
+	private String publisher;
+	
+	@Column
+	private Date yearOfPublication;
+
+	public int getBook_id() {
+		return book_id;
+	}
+
+	public void setBook_id(int book_id) {
+		this.book_id = book_id;
+	}
+
+	public String getBook_name() {
+		return book_name;
+	}
+
+	public void setBook_name(String book_name) {
+		this.book_name = book_name;
+	}
+
+	public String getAuthor1() {
+		return author1;
+	}
+
+	public void setAuthor1(String author1) {
+		this.author1 = author1;
+	}
+
+	public String getAuthor2() {
+		return author2;
+	}
+
+	public void setAuthor2(String author2) {
+		this.author2 = author2;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public Date getYearOfPublication() {
+		return yearOfPublication;
+	}
+
+	public void setYearOfPublication(Date yearOfPublication) {
+		this.yearOfPublication = yearOfPublication;
+	}
+	
+}

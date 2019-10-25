@@ -1,0 +1,60 @@
+package com.capgemini.librarymanagementsystem.beans;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class BooksRegistration {
+
+	@Id
+	@Column
+	private int registrationId;
+	
+	@Column
+	private int bookId;
+	
+	@Column
+	private int userIid;
+	
+	@Column
+	private Date registrationDate;
+
+	//getters and setters
+	public int getRegistrationId() {
+		return registrationId;
+	}
+
+	public void setRegistrationId(int registrationId) {
+		this.registrationId = registrationId;
+	}
+
+	public int getBookId() {
+		return book_id;
+	}
+
+	public void setBook_id(int book_id) {
+		this.book_id = book_id;
+	}
+
+	public int getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
+	public Date getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+	
+	
+	
+}

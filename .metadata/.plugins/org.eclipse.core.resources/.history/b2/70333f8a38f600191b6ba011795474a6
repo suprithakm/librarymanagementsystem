@@ -1,0 +1,60 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.BooksRegistration;
+import com.capgemini.librarymanagementsystem.beans.BooksTransaction;
+
+@Repository
+public class StudentDAOImpl implements StudentDAO{
+
+	@PersistenceUnit
+	EntityManagerFactory entityManagerFactory;
+	
+	@Override
+	public BooksRegistration requestBook(BooksInventory books, String userId, String registrationId) {
+		
+		
+		  EntityManager entityManager=entityManagerFactory.createEntityManager();
+		  EntityTransaction transaction=entityManager.getTransaction();
+		  transaction.begin();
+		  
+		  String viewBookDetails="from BooksInventory where bookId =: bookId";
+		  Query query=entityManager.createQuery(viewBookDetails);
+		  query.setParameter("bookId", books.getBookId());
+		  
+		  BooksInventory book=(BooksInventory) query.getSingleResult();
+		  
+		  BooksRegistration reg=new BooksRegistration();
+		  reg.setBookId(book.getBookId());
+		 
+		  Date date=new Date();
+		  reg.setRegistrationDate(date);
+		  reg.setRegistrationId(registrationId);
+		  reg.setUserId(userId);
+
+		  entityManager.persist(reg);
+		  transaction.commit();
+		  return reg;
+	}//end of requestBook
+
+	@Override
+	public boolean cancelRequest(String registrationId, String userId) {
+		// TODO Auto-generated method stub
+		return false;
+	}//end of cancelRequest
+
+	
+
+}//end of StudentDAOImpl

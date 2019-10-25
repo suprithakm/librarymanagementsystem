@@ -1,0 +1,10 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.BooksRegistration;
+
+public interface StudentDAO {
+
+	public BooksRegistration requestBook(BooksInventory books,String userId, String registrationId);
+	public boolean cancelRequest(String registrationId,String userId);
+}

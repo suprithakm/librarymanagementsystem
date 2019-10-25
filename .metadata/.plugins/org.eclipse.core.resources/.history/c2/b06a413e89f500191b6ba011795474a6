@@ -1,0 +1,26 @@
+package com.capgemini.librarymanagementsystem.utility;
+
+import java.util.List;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.BooksRegistration;
+import com.capgemini.librarymanagementsystem.beans.BooksTransaction;
+import com.capgemini.librarymanagementsystem.beans.Users;
+
+public class Response {
+
+	private int statusCode;
+	private String message;
+	
+	private Users users;
+	private List<Users> usersList;
+	
+	private BooksRegistration booksRegistration;
+	private List<BooksRegistration> bRegistrations;
+	
+	private BooksInventory booksInventory;
+	private List<BooksInventory> bInventories;
+	
+	private BooksTransaction booksTransaction;
+	private List<BooksTransaction> booksTransactions;
+	}

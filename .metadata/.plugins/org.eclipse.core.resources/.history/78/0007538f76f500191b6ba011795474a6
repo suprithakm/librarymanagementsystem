@@ -1,0 +1,79 @@
+package com.capgemini.librarymanagementsystem.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.capgemini.librarymanagementsystem.beans.Users;
+import com.capgemini.librarymanagementsystem.dao.AdminDAO;
+
+@Service
+public class AdminServiceImpl implements AdminService{
+
+	@Autowired
+	AdminDAO dao;
+
+	@Override
+	public Users login(int user_id, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addStudent(Users user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateStudent(Users user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteStudent(int user_id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addLibrarian(Users user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateLibrarian(Users user) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteLibrarian(int user_id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Users> showAllStudent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Users> showLibrarian() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Users searchStudentById(String email_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}//end of AdminServiceImpl

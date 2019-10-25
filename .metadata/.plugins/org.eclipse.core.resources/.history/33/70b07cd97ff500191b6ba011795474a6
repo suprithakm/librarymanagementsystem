@@ -1,0 +1,74 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.Users;
+
+@Repository
+public class CommonDAOImpl implements CommonDAO{
+
+	@PersistenceUnit
+	EntityManagerFactory entityManagerFactory;
+
+	@Override
+	public Users login(int user_id, String password) {
+
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		String selectQry="from Users where user_id =: user_id and password =: password";
+
+		Query query=entityManager.createQuery(selectQry);
+		query.setParameter("user_id", user_id);
+		query.setParameter("password", password);
+		Users users;
+		try {
+			users = (Users) query.getSingleResult();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		entityManager.close();
+		return users;
+	}//end of login
+
+	@Override
+	public List<BooksInventory> searchBooks(String book_name) {
+		
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		String selectQry="from BooksInventory where book_name =: book_name";
+
+		Query query=entityManager.createQuery(selectQry);
+		query.setParameter("book_name",book_name);
+		
+		List<BooksInventory> bookList=new ArrayList<BooksInventory>();
+		try {
+			bookList = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		entityManager.close();
+		return bookList;
+	}//end of searchBooks
+
+	@Override
+	public List<BooksInventory> showAllBooks() {
+		
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		String selectQry="from BooksInventory";
+
+		Query query=entityManager.createQuery(selectQry);
+		List<BooksInventory> bookList=query.getResultList();
+		entityManager.close();
+		return bookList;
+	}//end of showAllBooks
+
+}//end of CommonDAO

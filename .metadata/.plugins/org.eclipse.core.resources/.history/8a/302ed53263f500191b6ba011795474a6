@@ -1,0 +1,28 @@
+package com.capgemini.librarymanagementsystem.beans;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class BooksTransaction {
+
+	@Id
+	@Column
+	private int transaction_id;
+	
+	@Column
+	private int registration_id;
+	
+	@Column
+	private Date issue_date;
+	
+	@Column
+	private Date return_date;
+	
+	@Column
+	private double fine;
+	
+}

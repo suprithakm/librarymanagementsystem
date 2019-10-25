@@ -1,0 +1,51 @@
+package com.capgemini.librarymanagementsystem.validation;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class RegexInfo {
+	
+	public boolean regexId(String id) {
+		Pattern pat=Pattern.compile("\\d+");
+		Matcher mat=pat.matcher(id);
+		if(mat.matches()) {
+			return true;
+		} else {
+			return false;
+		}
+	}//for integer value
+	
+	public boolean regexPassword(String password) {
+		Pattern pat=Pattern.compile("\\w+\\d+");
+		Matcher mat=pat.matcher(password);
+		if(mat.matches()) {
+			return true;
+		} else {
+			return false;
+		}
+	}//for password
+	
+	public boolean regexEmail(String email) {
+		Pattern pat=Pattern.compile("\\w+\\@\\w+\\.\\w+");
+		Matcher mat=pat.matcher(email);
+		if(mat.matches()) {
+			return true;
+		} else {
+			return false;
+		}
+	}//for emailId
+	
+	public boolean regexName(String name) {
+		Pattern pat=Pattern.compile("\\w+");
+		Matcher mat=pat.matcher(name);
+		if(mat.matches()) {
+			return true;
+		} else {
+			return false;
+		}
+	}//for name
+	
+	
+	
+	
+}

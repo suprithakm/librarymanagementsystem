@@ -1,0 +1,26 @@
+<div class="col-md-4 offset-md-3 mt-4 card card-body">
+    <h4 class="border-botton" align=center>Login</h4>
+    <div class="spinner-border text-success m-auto" role="status" *ngIf = "isLoading">
+        <span class="sr-only">Loading...</span>
+      </div>
+    <form #loginForm='ngForm' (ngSubmit)='login(loginForm)'   *ngIf = "!isLoading">
+        <div class="form-group">
+        <input type="number" name="userId" placeholder="Enter id..."
+        #userId='ngModel' ngModel  class="form-control mb-3" required >
+        <div *ngIf="userId.touched &&  userId.invalid">
+            <p class=" alert alert-danger" *ngIf="userId.errors.required" >userId is required</p>
+        </div>
+   
+    
+        <input type="password" name="password" placeholder="Enter Password..."
+        #password='ngModel'  ngModel class="form-control mb-3" required>
+        <div   *ngIf="password.touched &&  password.invalid">
+        <p class=" alert alert-danger" *ngIf="password.errors.required">password is required</p>
+        </div>
+    </div>
+        <input type="submit" value="login" class="btn btn-outline-primary float-right" [disabled]='loginForm.invalid'>
+
+    </form>
+    </div>
+    
+  

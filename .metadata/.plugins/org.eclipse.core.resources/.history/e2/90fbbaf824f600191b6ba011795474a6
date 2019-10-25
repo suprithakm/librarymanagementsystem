@@ -1,0 +1,12 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import org.springframework.stereotype.Repository;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+
+@Repository
+public class StudentDAOImpl implements StudentDAO{
+
+	
+
+}

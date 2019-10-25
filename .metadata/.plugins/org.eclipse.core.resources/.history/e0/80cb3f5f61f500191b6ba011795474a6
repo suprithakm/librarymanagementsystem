@@ -1,0 +1,30 @@
+package com.capgemini.librarymanagementsystem.beans;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class BooksInventory {
+
+	@Id
+	@Column
+	@GeneratedValue
+	private int book_id;
+	
+	@Column
+	private String book_name;
+	
+	@Column
+	private String author1;
+	
+	@Column
+	private String author2;
+	
+	@Column
+	private String publisher;
+	
+	@Column
+	private Date yearOfPublication;
+}

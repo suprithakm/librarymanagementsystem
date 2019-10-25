@@ -1,0 +1,8 @@
+package com.capgemini.librarymanagementsystem.service;
+
+import com.capgemini.librarymanagementsystem.beans.Users;
+
+public interface CommonService {
+
+	public Users login(int user_id, String password);
+}

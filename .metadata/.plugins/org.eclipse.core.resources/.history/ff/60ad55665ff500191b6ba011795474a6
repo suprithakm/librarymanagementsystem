@@ -1,0 +1,5 @@
+package com.capgemini.librarymanagementsystem.config;
+
+public class JPAconfig {
+
+}

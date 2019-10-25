@@ -1,0 +1,131 @@
+package com.capgemini.librarymanagementsystem.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.Users;
+import com.capgemini.librarymanagementsystem.service.AdminService;
+import com.capgemini.librarymanagementsystem.service.CommonService;
+import com.capgemini.librarymanagementsystem.utility.Response;
+
+@RestController
+public class AdminController {
+
+	@Autowired
+	CommonService common;
+	
+	@Autowired
+	AdminService admin;
+	
+	@PostMapping("admin/login")
+	public Users login(String userId,String password) {
+		Response response=new Response();
+		Users users=common.login(userId, password);
+		return users;
+	}//end of login
+	
+	@PostMapping("admin/addStudent")
+	public Response addStudent(@RequestBody Users user) {
+		Response response=new Response();
+		if(admin.addStudent(user)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of addStudent
+	
+	@PostMapping("admin/addLibrarian")
+	public Response addLibrarian(@RequestBody Users user) {
+		Response response=new Response();
+		if(admin.addLibrarian(user)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of addLibrarian
+	
+	
+	@PutMapping("admin/updateStudent")
+	public Response updateStudent(@RequestBody Users user) {
+		Response response=new Response();
+		if(admin.updateStudent(user)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of updateStudent
+	
+	@PutMapping("admin/updateLibrarian")
+	public Response updateLibrarian(@RequestBody Users user) {
+		Response response=new Response();
+		if(admin.updateLibrarian(user)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of updateLibraraian
+	
+	@DeleteMapping("admin/deleteStudent")
+	public Response deleteStudent(String userId) {
+		Response response=new Response();
+		if(admin.deleteStudent(userId)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of delete Student
+	
+	@DeleteMapping("deleteLibrarian")
+	public Response deleteLibrarian(String userId) {
+		Response response=new Response();
+		if(admin.deleteLibrarian(userId)) {
+			response.setStatusCode(201);
+			response.setMessage("success");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("failure");
+		}return response;
+		
+	}//end of delete Libraraian
+	
+	
+	@GetMapping("/searchBooks")
+	@ResponseBody
+	public List<BooksInventory> searchBooks(String bookName) {
+		List<BooksInventory> bookList=common.searchBooks(bookName);
+		return bookList;
+	}//end of searchBooks
+
+
+	@GetMapping("/showAllBooks")
+	@ResponseBody
+	public List<BooksInventory> showAllBooks() {
+		List<BooksInventory> bookList=common.showAllBooks();
+		return bookList;
+	}//end of showAllBooks
+	
+}//end of AdminController

@@ -1,0 +1,16 @@
+package com.capgemini.librarymanagementsystem.service;
+
+import java.util.List;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.BooksTransaction;
+
+public interface LibrarianService {
+
+	public boolean addBooks(BooksInventory books);
+	public boolean updateBooks(BooksInventory books);
+	public boolean deleteBooks(int book_id);
+	
+	public List<BooksTransaction> showAllIssuedBooks(int user_id); 
+	
+}

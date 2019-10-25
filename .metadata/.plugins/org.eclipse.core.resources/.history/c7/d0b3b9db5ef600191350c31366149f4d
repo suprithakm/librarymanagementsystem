@@ -1,0 +1,22 @@
+package com.capgemini.librarymanagementsystem.test;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class AdminTestCases {
+
+@Autowired
+AdminDao admin;
+	
+	@Test
+	public void list() {
+		
+	}
+	
+	@Test
+	public void testowner() {
+		boolean res = adminDao.addBusCheck(101);
+		assertEquals(true, res);
+	}
+	
+}

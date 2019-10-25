@@ -1,0 +1,32 @@
+
+
+
+<div class="col-md-4 offset-md-4 card card-body mt-5">
+    <div class="spinner-border text-success m-auto" role="status" *ngIf = "isLoading">
+            <span class="sr-only">Loading...</span>
+          </div>
+          
+    <form #addForm = 'ngForm' (ngSubmit)="add(addForm)" *ngIf=isadd >
+        <input type="number" name="userId" #userId = 'ngModel' ngModel
+        class="form-control mb-3" placeholder="Enter user Id...">
+
+        <input type="text" name="userName" #userName = 'ngModel' ngModel
+        class="form-control mb-3" placeholder="Enter the user Name...">
+
+        <input type="email" name="emailId" #emailId = 'ngModel' ngModel
+        class="form-control mb-3" placeholder="Enter the emailId...">
+
+        <input type="password" name="password" #password = 'ngModel' ngModel
+        class="form-control mb-3" placeholder="Enter the password...">
+
+        <input type="text" name="type" #type = 'ngModel' ngModel
+        class="form-control mb-3" placeholder="Enter the type...">
+        
+        <div class="btn-group float-right">
+            <button type="reset" class="btn btn-outline-dark">Reset</button>
+            <button type="submit" class="btn btn-outline-primary">Add </button>
+
+        </div>
+    </form>
+</div>
+

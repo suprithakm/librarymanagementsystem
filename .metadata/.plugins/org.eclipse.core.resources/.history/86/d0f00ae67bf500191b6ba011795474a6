@@ -1,0 +1,12 @@
+package com.capgemini.librarymanagementsystem.service;
+
+import java.util.List;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.Users;
+
+public interface CommonService {
+
+	public Users login(int user_id, String password);
+	public List<BooksInventory> searchBooks(String book_name);
+}

@@ -1,0 +1,104 @@
+package com.capgemini.librarymanagementsystem.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class LibrarianController {
+
+	
+	
+	@PostMapping(path="/addLogin",
+			consumes = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}, produces =
+				{ MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+
+			)
+	@ResponseBody
+	public loginResponse addOwnerUser(@RequestBody Login login) {
+
+		loginResponse response=new loginResponse();
+		if(serviceAdmin.addLogin(login)) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setDescription("Employee added successfully");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("Unable to add employee");
+		}
+		return response;
+	}//end of addOwnerUser
+	
+	
+	
+	@DeleteMapping("/deleteUser/{id}")
+	@ResponseBody
+	public loginResponse deleteUser(@PathVariable(name="id") int id) {
+		//map only through some 
+		loginResponse response=new loginResponse();
+		if(serviceCustomer.deleteUser(id)) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setDescription("User deleted successfully");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("Unable to delete employee");
+		}
+		return response;
+	}//end of deleteUser
+	
+	
+	@DeleteMapping("/deleteOwner/{id}")
+	@ResponseBody
+	public loginResponse deleteOwner(@PathVariable(name="id") int id) {
+		//map only through some 
+		loginResponse response=new loginResponse();
+		if(serviceAdmin.deleteOwner(id)) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setDescription("Owner deleted successfully");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("Unable to delete employee");
+		}
+		return response;
+	}//end of deleteOwner
+	
+	
+	@PutMapping("/updateLogin")
+	public loginResponse updateEmployee(@RequestBody Login login) {
+
+		loginResponse response=new loginResponse();
+		
+		if(serviceAdmin.updateLogin(login)) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setDescription("Employee updated successfully");
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("Unable to add employee");
+		}
+		return response;
+	}//end of updateLogin
+	
+	
+	@GetMapping(path="/getAllUsers", 
+			produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	public loginResponse getAllUsers(){
+		List<Login> loginList= serviceAdmin.displayCustomers();
+		loginResponse response=new loginResponse();
+		if(loginList!=null) {
+			response.setStatusCode(201);
+			response.setMessage("Success");
+			response.setDescription("Employee details fetched successfully");
+			response.setloginList(loginList);
+		}else {
+			response.setStatusCode(401);
+			response.setMessage("Failed");
+			response.setDescription("Unable to fetch employee list");
+		}
+		return response;
+	}//end of getAllUsers
+}
