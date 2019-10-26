@@ -114,6 +114,32 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		}
 		return resultSet;
 	}//end of showIssuedBooks
+	
+	@Override
+	public List<BooksTransaction> showAllIssuedBooks() {
+		
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+
+		String viewRegistrationDetails="from BooksRegistration where userId =: userId";
+		Query query=entityManager.createQuery(viewRegistrationDetails);
+		
+		List<BooksRegistration> bookDetails=query.getResultList();
+		
+		String viewTransaction="from BooksTransaction where registrationId =: registrationId";
+		query=entityManager.createQuery(viewTransaction);
+		List<BooksTransaction> bookTransactions;
+		
+		List<BooksTransaction> resultSet=new ArrayList<BooksTransaction>();
+		
+		if(bookDetails.size()>0) {
+			for(BooksRegistration registration:bookDetails) {
+				query.setParameter("registrationId", registration.getRegistrationId());
+				bookTransactions=query.getResultList();
+				resultSet.addAll(bookTransactions);
+			}
+		}
+		return resultSet;
+	}//end of showIssuedBooks
 
 	@Override
 	public List<BooksRegistration> showAllRequests() {
@@ -137,7 +163,8 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		String viewRegistrationDetails="from BooksRegistration where registrationId=:registrationId";
 		Query query=entityManager.createQuery(viewRegistrationDetails);
 		query.setParameter("registrationId",registrationId);
-		
+		BooksTransaction trans=null;
+		try {
 		BooksRegistration bookDetails=(BooksRegistration)query.getSingleResult();
 		
 		Random random=new Random();
@@ -146,7 +173,7 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 			transactionId=transactionId*(-1);
 		}
 		
-		BooksTransaction trans=new BooksTransaction();
+		 trans=new BooksTransaction();
 		trans.setRegistrationId(bookDetails.getRegistrationId());
 		trans.setTransactionId(Integer.toString(transactionId));
 		trans.setIssueDate(bookDetails.getRegistrationDate());
@@ -159,6 +186,9 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		
 		entityManager.persist(trans);
 		transaction.commit();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return trans;
 	}//end of acceptRequest
 
@@ -190,8 +220,22 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		bookPresent.setReturnDate(returnDate);
 		bookPresent.setTransactionId(book.getTransactionId());
 
-		transaction.commit();
-		System.out.println(bookPresent.getFine());
+		String select="from BooksRegistration where registrationId=:registrationId";
+		Query query1=entityManager.createQuery(select);
+
+		query.setParameter("registrationId", bookPresent.getRegistrationId());
+		BooksRegistration bookDelete=null;
+		
+		try {
+			bookDelete=(BooksRegistration)query.getSingleResult();
+			entityManager.remove(bookDelete);
+			transaction.commit();
+
+		}catch(Exception e) {
+			transaction.rollback();
+		}
+		entityManager.close();
+		
 		return book;
 	}//end of addFine
 

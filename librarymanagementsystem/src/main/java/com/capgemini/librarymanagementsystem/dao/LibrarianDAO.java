@@ -14,6 +14,7 @@ public interface LibrarianDAO {
 	public boolean deleteBooks(String book_id);
 	
 	public List<BooksTransaction> showAllIssuedBooks(String user_id);
+	public List<BooksTransaction> showAllIssuedBooks();
 	public List<BooksRegistration> showAllRequests();
 	public BooksTransaction acceptRequest(String registrationId);
 	public BooksTransaction addFine(String registrationId, Date returnDate);

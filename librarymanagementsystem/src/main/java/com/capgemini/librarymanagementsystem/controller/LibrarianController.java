@@ -60,14 +60,19 @@ public class LibrarianController {
 
 	}//end of deleteBooks
 
-	@GetMapping("showAllIssuedBooks")
+	@GetMapping("showAllIssuedBook/{userId}")
 	@ResponseBody
-	public List<BooksTransaction> showAllIssuedBook(String userId) {
+	public List<BooksTransaction> showAllIssueBook(@PathVariable(name="userId") String userId) {
 		List<BooksTransaction> bookList=librarian.showAllIssuedBooks(userId);
 		return bookList;
 	}//end of showAllIssuedBooks
 
-
+	@GetMapping("showAllIssuedBooks")
+	@ResponseBody
+	public List<BooksTransaction> showAllIssuedBook() {
+		List<BooksTransaction> bookList=librarian.showAllIssuedBooks();
+		return bookList;
+	}//end of showAllIssuedBooks
 
 	@GetMapping("showAllRequests")
 	@ResponseBody

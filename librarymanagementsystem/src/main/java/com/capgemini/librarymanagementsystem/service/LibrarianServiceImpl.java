@@ -68,6 +68,11 @@ public class LibrarianServiceImpl implements LibrarianService{
 		return dao.addFine(registrationId, returnDate);
 	}
 
+	@Override
+	public List<BooksTransaction> showAllIssuedBooks() {
+		return dao.showAllIssuedBooks();
+	}
+
 	
 
 }

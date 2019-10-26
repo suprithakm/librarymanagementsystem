@@ -19,35 +19,43 @@ public class StudentDAOImpl implements StudentDAO{
 
 	@PersistenceUnit
 	EntityManagerFactory entityManagerFactory;
-	
+
 	@Override
 	public BooksRegistration requestBook(BooksInventory books, String userId) {
-		
-		  EntityManager entityManager=entityManagerFactory.createEntityManager();
-		  EntityTransaction transaction=entityManager.getTransaction();
-		  transaction.begin();
-		  
-		  String viewBookDetails="from BooksInventory where bookId =: bookId";
-		  Query query=entityManager.createQuery(viewBookDetails);
-		  query.setParameter("bookId", books.getBookId());
-		  
-		  BooksInventory book=(BooksInventory) query.getSingleResult();
-		  
-		  BooksRegistration reg=new BooksRegistration();
-		  reg.setBookId(book.getBookId());
-		 
-		  Date date=new Date();
-		  reg.setRegistrationDate(date);
-		  
-		  Random random=new Random();
-		  int registrationId=random.nextInt(500);
-		  
-		  reg.setRegistrationId(Integer.toString(registrationId));
-		  reg.setUserId(userId);
 
-		  entityManager.persist(reg);
-		  transaction.commit();
-		  return reg;
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		EntityTransaction transaction=entityManager.getTransaction();
+		transaction.begin();
+
+		String viewBookDetails="from BooksInventory where bookId =: bookId";
+		Query query=entityManager.createQuery(viewBookDetails);
+		query.setParameter("bookId", books.getBookId());
+
+		BooksInventory book=(BooksInventory) query.getSingleResult();
+
+		String select="from BooksRegistration where bookId=:bookId";
+		Query query1=entityManager.createQuery(select);
+
+		query1.setParameter("bookId", book.getBookId());
+
+		BooksRegistration bookPresent=(BooksRegistration)query1.getSingleResult();
+
+		BooksRegistration reg=null;
+		if (bookPresent==null) {
+			reg = new BooksRegistration();
+			reg.setBookId(book.getBookId());
+			Date date = new Date();
+			reg.setRegistrationDate(date);
+			Random random = new Random();
+			int registrationId = random.nextInt(500);
+			reg.setRegistrationId(Integer.toString(registrationId));
+			reg.setUserId(userId);
+			entityManager.persist(reg);
+			transaction.commit();
+		}else {
+			System.out.println("Book is not available");
+		}
+		return reg;
 	}//end of requestBook
 
 	@Override
@@ -57,7 +65,7 @@ public class StudentDAOImpl implements StudentDAO{
 		transaction.begin();
 		String select="from BooksRegistration where registrationId=:registrationId and userId=:userId";
 		Query query=entityManager.createQuery(select);
-		
+
 		query.setParameter("registrationId", registrationId);
 		query.setParameter("userId", userId);
 		BooksRegistration book=null;
@@ -65,7 +73,7 @@ public class StudentDAOImpl implements StudentDAO{
 			book=(BooksRegistration)query.getSingleResult();
 			entityManager.remove(book);
 			transaction.commit();
-			
+
 		}catch(Exception e) {
 			transaction.rollback();
 			return false;
@@ -74,6 +82,6 @@ public class StudentDAOImpl implements StudentDAO{
 		return true;
 	}//end of cancelRequest
 
-	
+
 
 }//end of StudentDAOImpl
