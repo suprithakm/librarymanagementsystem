@@ -26,7 +26,7 @@ public class StudentController {
 	}//end of addBooks
 	
 	@DeleteMapping("cancelRequestBook/{registrationId}/{userId}")
-	public boolean cancelRequest(String registrationId, String userId) {
+	public boolean cancelRequest(@PathVariable(name="registrationId") String registrationId,@PathVariable(name="userId") String userId) {
 		return service.cancelRequest(registrationId, userId);
 	}//end of cancelRequestBook
 }

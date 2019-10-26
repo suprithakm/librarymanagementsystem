@@ -15,6 +15,14 @@ public class BooksInventory {
 	@Column
 	private String bookId;
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	@Column
 	private String bookName;
 	
@@ -29,6 +37,9 @@ public class BooksInventory {
 	
 	@Column
 	private Date yearOfPublication;
+	
+	@Column
+	private String image;
 
 	//getters and setters
 	public String getBookId() {

@@ -1,6 +1,5 @@
 package com.capgemini.librarymanagementsystem.dao;
 
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,6 +30,7 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		EntityTransaction transaction=entityManager.getTransaction();
 		transaction.begin();
 		boolean isAdded=false;
+		
 		try {
 				entityManager.persist(books);
 				transaction.commit();
@@ -57,6 +57,7 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 			bookPresent.setBookId(books.getBookId());
 			bookPresent.setPublisher(books.getPublisher());
 			bookPresent.setYearOfPublication(books.getYearOfPublication());
+			bookPresent.setImage(books.getImage());
 
 			transaction.commit();
 			return true;
@@ -176,16 +177,21 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		BooksTransaction book=(BooksTransaction)query.getSingleResult();
 		Date rtn=book.getReturnDate();
 		
-		int days=(int)((rtn.getTime()-returnDate.getTime())/(1000*60*60*24));
-		if(days<=0) {
-			book.setFine(0.0);
+		BooksTransaction bookPresent=entityManager.find(BooksTransaction.class,book.getTransactionId());
+		
+		int days=(int)((returnDate.getTime()-rtn.getTime())/(1000*60*60*24));
+		if((days-15)>0) {
+			bookPresent.setFine((days-15)*1.0);
 		}else {
-			book.setFine(days*1.0);
+			bookPresent.setFine(book.getFine());
 		}
-		book.setReturnDate(returnDate);
+		bookPresent.setIssueDate(book.getIssueDate());
+		bookPresent.setRegistrationId(book.getRegistrationId());
+		bookPresent.setReturnDate(returnDate);
+		bookPresent.setTransactionId(book.getTransactionId());
 
-		entityManager.persist(book);
 		transaction.commit();
+		System.out.println(bookPresent.getFine());
 		return book;
 	}//end of addFine
 

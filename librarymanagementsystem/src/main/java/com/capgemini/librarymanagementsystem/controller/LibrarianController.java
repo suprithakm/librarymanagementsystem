@@ -21,7 +21,6 @@ import com.capgemini.librarymanagementsystem.beans.BooksInventory;
 import com.capgemini.librarymanagementsystem.beans.BooksRegistration;
 import com.capgemini.librarymanagementsystem.beans.BooksTransaction;
 import com.capgemini.librarymanagementsystem.service.LibrarianService;
-import com.capgemini.librarymanagementsystem.utility.Response;
 
 @RestController
 @CrossOrigin(origins="*", allowedHeaders="*",allowCredentials="true")
@@ -30,10 +29,6 @@ public class LibrarianController {
 	@Autowired
 	LibrarianService librarian;
 
-	public void InitBinder(WebDataBinder binder) {
-		CustomDateEditor dateEditor=new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
-		binder.registerCustomEditor(Date.class,dateEditor);
-	}
 	
 	@PostMapping("addBooks")
 	public boolean addBook(@RequestBody BooksInventory book) {
@@ -90,10 +85,10 @@ public class LibrarianController {
 	}//end of acceptRequest
 	
 	
-	@GetMapping("addFine/{registrationId}/{returnDate}")
+	@GetMapping("addFine")
 	@ResponseBody
-	public BooksTransaction addFinee(@PathVariable(name="registrationId") String registrationId,@PathVariable(name="returnDate") Date returnDate) {
-		BooksTransaction trans=librarian.addFine(registrationId,returnDate);
+	public BooksTransaction addFinee(@RequestBody BooksTransaction trans1) {
+		BooksTransaction trans=librarian.addFine(trans1.getRegistrationId(),trans1.getReturnDate());
 		return trans;
 	}//end of acceptRequest
 }

@@ -55,10 +55,11 @@ public class StudentDAOImpl implements StudentDAO{
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
 		transaction.begin();
-		String select="from BooksRegistration where userId=:userId and registrationId=:registrationId";
+		String select="from BooksRegistration where registrationId=:registrationId and userId=:userId";
 		Query query=entityManager.createQuery(select);
-		query.setParameter("userId", userId);
+		
 		query.setParameter("registrationId", registrationId);
+		query.setParameter("userId", userId);
 		BooksRegistration book=null;
 		try {
 			book=(BooksRegistration)query.getSingleResult();

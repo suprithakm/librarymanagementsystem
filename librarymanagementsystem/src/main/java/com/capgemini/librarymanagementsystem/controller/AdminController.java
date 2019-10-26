@@ -56,9 +56,8 @@ public class AdminController {
 	}//end of updateUser
 	
 	
-	@DeleteMapping("deleteUser")
-	public boolean deleteUser(String userId) {
-		Response response=new Response();
+	@DeleteMapping("deleteUser/{userId}")
+	public boolean deleteUser(@PathVariable(name="userId") String userId) {
 		if(admin.deleteUser(userId)) {
 			return true;
 		}else {
