@@ -83,7 +83,7 @@ public class AdminDAOImpl implements AdminDAO{
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
 
-		String jpql="from Users where type='student'";
+		String jpql="from Users where type != 'admin'";
 		Query query=entityManager.createQuery(jpql);
 		List<Users> arraylist=new ArrayList<Users>();
 		List<Users> allUser=null;

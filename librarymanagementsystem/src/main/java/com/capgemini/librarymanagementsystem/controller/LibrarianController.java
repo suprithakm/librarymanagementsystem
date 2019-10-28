@@ -1,5 +1,6 @@
 package com.capgemini.librarymanagementsystem.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +28,7 @@ import com.capgemini.librarymanagementsystem.service.LibrarianService;
 public class LibrarianController {
 
 	@Autowired
-	LibrarianService librarian;
+	private LibrarianService librarian;
 
 	
 	@PostMapping("addBooks")
@@ -86,9 +87,16 @@ public class LibrarianController {
 	}//end of acceptRequest
 	
 	
-	@GetMapping("returnBook/{registrationId}/{returnDate}")
-	public BooksTransaction rtnBook(@PathVariable(name="registrationId") String registrationId,@PathVariable(name="returnDate") Date returnDate) {
-		BooksTransaction trans=librarian.returnBook(registrationId,returnDate);
+	@GetMapping("returnBook/{returnDate}/{registrationId}")
+	public BooksTransaction rtnBook(@PathVariable(name="returnDate") String returnDate, @PathVariable(name="registrationId") String registrationId) {
+		Date rtnDate;
+		try {
+			rtnDate=new SimpleDateFormat("yyyy-MM-dd").parse(returnDate);
+		BooksTransaction trans=librarian.returnBook(registrationId,rtnDate);
 		return trans;
+		}catch(ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}//end of acceptRequest
 }

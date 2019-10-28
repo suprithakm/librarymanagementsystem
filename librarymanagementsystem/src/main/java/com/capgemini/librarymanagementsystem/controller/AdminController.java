@@ -24,10 +24,10 @@ import com.capgemini.librarymanagementsystem.utility.Response;
 public class AdminController {
 
 	@Autowired
-	CommonService common;
+	private CommonService common;
 	
 	@Autowired
-	AdminService admin;
+	private AdminService admin;
 	
 	@GetMapping("login/{userId}/{password}")
 	public Users login(@PathVariable(name="userId") String userId,@PathVariable(name="password") String password) {

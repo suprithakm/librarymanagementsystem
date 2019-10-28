@@ -17,7 +17,7 @@ import com.capgemini.librarymanagementsystem.service.StudentService;
 public class StudentController {
 
 	@Autowired
-	StudentService service;
+	private StudentService service;
 
 	@PostMapping("requestBook/{userId}")
 	public BooksRegistration request(@PathVariable(name="userId") String userId,@RequestBody BooksInventory book) {

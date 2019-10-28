@@ -125,11 +125,8 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		Query query=null;
 		try {
 				
-		
 		query=entityManager.createQuery(viewTransaction);
-		
 		 resultSet=query.getResultList();
-		
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -160,7 +157,7 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		Query query=entityManager.createQuery(viewRegistrationDetails);
 		query.setParameter("registrationId",registrationId);
 		BooksTransaction trans=null;
-		try {
+	
 		BooksRegistration bookDetails=(BooksRegistration)query.getSingleResult();
 		
 		Random random=new Random();
@@ -168,6 +165,17 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		if(transactionId<0) {
 			transactionId=transactionId*(-1);
 		}
+		
+		String viewTransactionDetails="from BooksTransaction where registrationId =: registrationId";
+		Query query1=entityManager.createQuery(viewTransactionDetails);
+		query1.setParameter("registrationId", registrationId);
+		
+		try {
+			BooksTransaction book=(BooksTransaction) query1.getSingleResult();
+			if(book!=null) {
+				return null;
+			}
+		}catch(Exception e) {
 		
 		 trans=new BooksTransaction();
 		trans.setRegistrationId(bookDetails.getRegistrationId());
@@ -182,8 +190,7 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		
 		entityManager.persist(trans);
 		transaction.commit();
-		}catch(Exception e) {
-			e.printStackTrace();
+		return trans;
 		}
 		return trans;
 	}//end of acceptRequest
