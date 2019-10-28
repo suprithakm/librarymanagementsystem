@@ -1,1 +1,31 @@
-<p>student-operation works!</p>
+<div class="col-md-4 offset-md-4 mt-3">
+    <input type="search" class="form-control" placeholder="enter book name..." [(ngModel)]='searchValue'>
+</div>
+<br><br>
+
+<div class="card card-body col-md-3 border border-secondary float-left"
+    *ngFor="let books of allbooks |filter:searchValue">
+    <img src="{{books.image}}" class="card-img-top" height=200px>
+    <h4 class="text-center">{{books.bookName | uppercase}}</h4>
+    <h5 align=center>
+        <p>BOOKID: {{books.bookId }}</p>
+        <p>AUTHOR1: {{books.author1 }}</p>
+        <p>AUTHOR2: {{books.author2}}</p>
+        <p>PUBLISHER: {{books.publisher}}</p>
+        <p>YOP: {{books.yearOfPublication}}</p>
+    </h5>
+
+    <div>
+        <!-- Button trigger modal -->
+
+        <button *ngIf='id!=books.bookId' type="button" class="btn btn-success" (click)='requestForBook(books)'>
+            request
+        </button>
+
+        <button *ngIf='id===books.bookId' type="button" class="btn btn-grey" disabled>
+            requested
+        </button>
+
+        <button class="btn btn-outline-danger float-right" (click)="cancel()">cancel</button>
+    </div>
+</div>

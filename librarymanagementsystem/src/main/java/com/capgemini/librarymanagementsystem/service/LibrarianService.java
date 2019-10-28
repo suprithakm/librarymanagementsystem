@@ -19,5 +19,5 @@ public interface LibrarianService {
 	
 	public BooksTransaction acceptRequest(String registrationId);
 
-	public BooksTransaction addFine(String registrationId, Date returnDate);
+	public BooksTransaction returnBook(String registrationId, Date returnDate);
 }

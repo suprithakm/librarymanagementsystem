@@ -64,8 +64,8 @@ public class LibrarianServiceImpl implements LibrarianService{
 	}
 
 	@Override
-	public BooksTransaction addFine(String registrationId,Date returnDate) {
-		return dao.addFine(registrationId, returnDate);
+	public BooksTransaction returnBook(String registrationId,Date returnDate) {
+		return dao.returnBook(registrationId, returnDate);
 	}
 
 	@Override

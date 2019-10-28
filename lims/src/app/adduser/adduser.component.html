@@ -1,33 +1,57 @@
-
-
-
 <div class="col-md-4 offset-md-4 card card-body mt-5">
-        <div class="spinner-border text-success m-auto" role="status" *ngIf = "isLoading">
-                <span class="sr-only">Loading...</span>
-              </div>
-              
-        <form #addForm = 'ngForm' (ngSubmit)="add(addForm)" *ngIf=isadd >
-            <input type="number" name="userId" #userId = 'ngModel' ngModel
-            class="form-control mb-3" placeholder="Enter user Id...">
-    
-            <input type="text" name="userName" #userName = 'ngModel' ngModel
-            class="form-control mb-3" placeholder="Enter the user Name...">
-    
-            <input type="email" name="emailId" #emailId = 'ngModel' ngModel
-            class="form-control mb-3" placeholder="Enter the emailId...">
-    
-            <input type="password" name="password" #password = 'ngModel' ngModel
-            class="form-control mb-3" placeholder="Enter the password...">
-    
-            <input type="text" name="type" #type = 'ngModel' ngModel
-            class="form-control mb-3" placeholder="Enter the type...">
-            
-            <div class="btn-group float-right">
-                <button type="reset" class="btn btn-outline-dark">Reset</button>
-                <button type="submit" class="btn btn-outline-primary">Add </button>
-    
-            </div>
-        </form>
+    <div class="spinner-border text-success m-auto" role="status" *ngIf="isLoading">
+        <span class="sr-only">Loading...</span>
     </div>
-    
-    
+
+    <form #addForm='ngForm' (ngSubmit)="add(addForm)">
+
+        <div class="form-group">
+            <label for="userId">Enter User Id</label>
+            <input type="text" name="userId" #userId='ngModel' ngModel class="form-control mb-3"
+                placeholder="Enter user Id..." required>
+            <div *ngIf="userId.touched &&  userId.invalid">
+                <p class="text-danger" *ngIf="userId.errors.required">userId is required</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="userName">Enter user name</label>
+            <input type="text" name="userName" #userName='ngModel' ngModel class="form-control mb-3"
+                placeholder="Enter the user Name..." required>
+            <div *ngIf="userName.touched &&  userName.invalid">
+                <p class="text-danger" *ngIf="userName.errors.required">userName is required</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="emailId">Enter email id</label>
+            <input type="email" name="emailId" #emailId='ngModel' ngModel class="form-control mb-3"
+                placeholder="Enter the emailId..." required>
+            <div *ngIf="emailId.touched &&  emailId.invalid">
+                <p class="text-danger" *ngIf="emailId.errors.required">userId is required</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Enter password</label>
+            <input type="password" name="password" #password='ngModel' ngModel class="form-control mb-3"
+                placeholder="Enter password...">
+            <div *ngIf="password.touched && password.invalid">
+                <p class="text-danger" *ngIf="password.errors.required">Password is required</p>
+            </div>
+        </div>
+        <div class="form- group">
+            <label for="type">Enter type</label>
+            <input type="text" name="type" #type='ngModel' ngModel class="form-control mb-3"
+                placeholder="Enter type...">
+            <div *ngIf="type.touched && type.invalid">
+                <p class="text-danger" *ngIf="type.errors.required">Type is required</p>
+            </div>
+        </div>
+        <div class="btn-group float-right">
+            <button type="reset" class="btn btn-outline-dark">Reset</button>
+            <button type="submit" class="btn btn-outline-primary">Add </button>
+
+        </div>
+    </form>
+</div>

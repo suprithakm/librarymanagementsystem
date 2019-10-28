@@ -10,45 +10,47 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  isLoading=false;
-  isAdminLogin=false;
-  isLibrarianLogin=false;
-  isStudentLogin=false;
-  isLogin=false;
- 
-  constructor(private service:CommonService, private router: Router) { }
+  isLoading = false;
+  isAdminLogin = false;
+  isLibrarianLogin = false;
+  isStudentLogin = false;
+  isLogin = false;
 
-  login(loginForm: NgForm){
+  constructor(private service: CommonService, private router: Router) { }
+
+  login(loginForm: NgForm) {
     this.service.login(loginForm.value)
-    .subscribe(resData=>{
-      if(resData != null ){
-      this.isLoading=true;
-        if(resData.type==='admin'){
-          alert(' admin login successfull');
-          console.log(resData);
-          this.isAdminLogin=true;
+      .subscribe(resData => {
+        if (resData != null) {
+          this.isLoading = true;
+          if (resData.type === 'admin') {
+            alert(' admin login successful');
+            this.isAdminLogin = true;
+            loginForm.reset();
+            localStorage.setItem('token', resData.userId)
+            this.router.navigateByUrl('/admin-home')
+          }
+          else if (resData.type === 'librarian') {
+            alert(' librarian login successfull');
+            this.isLibrarianLogin = true;
+            loginForm.reset();
+            localStorage.setItem('token', resData.userId)
+            this.router.navigateByUrl('/librarian-home')
+          }
+          else if (resData.type === 'student') {
+            alert('student login successfull');
+            this.isStudentLogin = true;
+            loginForm.reset();
+            localStorage.setItem('token', resData.userId)
+            this.router.navigateByUrl('/student-home')
+          }
+        } else {
+          alert("invalid id/password");
           loginForm.reset();
-          this.router.navigateByUrl('/admin-home')
         }
-       else if(resData.type==='librarian'){
-          alert(' librarian login successfull');
-          this.isLibrarianLogin=true;
-          loginForm.reset();
-          this.router.navigateByUrl('/librarian-home')
-        }
-       else if(resData.type==='student'){
-          alert('login successfull');
-          this.isStudentLogin=true;
-          loginForm.reset();
-          this.router.navigateByUrl('/student-home')
-        }
-      }else{
-        alert("invalid id/password");
-        loginForm.reset();
-      }
-    
-      
-    });
+
+
+      });
   }
 
 

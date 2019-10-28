@@ -67,7 +67,6 @@ public class AdminController {
 	}//end of delete User
 	
 	@GetMapping("searchBooks")
-	@ResponseBody
 	public List<BooksInventory> searchBook(String bookName) {
 		List<BooksInventory> bookList=common.searchBooks(bookName);
 		return bookList;
@@ -75,14 +74,12 @@ public class AdminController {
 
 
 	@GetMapping("showAllBooks")
-	@ResponseBody
 	public List<BooksInventory> showAllBooks() {
 		List<BooksInventory> bookList=common.showAllBooks();
 		return bookList;
 	}//end of showAllBooks
 	
 	@GetMapping("showAllUser")
-	@ResponseBody
 	public List<Users> showAllStd() {
 		List<Users> usersList=admin.showAllUser();
 		return usersList;
@@ -90,7 +87,6 @@ public class AdminController {
 	
 	
 	@GetMapping("searchUser")
-	@ResponseBody
 	public Users searchUser(String userId) {
 		Users users=admin.searchUser(userId);
 		return users;

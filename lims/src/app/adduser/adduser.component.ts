@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from '../common.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-adduser',
@@ -7,7 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdduserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service:CommonService) { }
+  
+  add(addForm:NgForm){
+   console.log(localStorage.getItem('token'));
+    this.service.addUser(addForm.value).subscribe(resData=>{
+      if(resData){
+        addForm.reset();
+        alert('user added successfully');
+      }else{
+        alert('user id already exist');
+      }
+    })
+  }
 
   ngOnInit() {
   }

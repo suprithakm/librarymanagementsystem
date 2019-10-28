@@ -37,11 +37,13 @@ public class StudentDAOImpl implements StudentDAO{
 		Query query1=entityManager.createQuery(select);
 
 		query1.setParameter("bookId", book.getBookId());
-
-		BooksRegistration bookPresent=(BooksRegistration)query1.getSingleResult();
-
 		BooksRegistration reg=null;
-		if (bookPresent==null) {
+		BooksRegistration bookPresent=null;
+		try {
+			bookPresent=(BooksRegistration)query1.getSingleResult();
+			System.out.println("Book is not available");
+
+		}catch(Exception e) {
 			reg = new BooksRegistration();
 			reg.setBookId(book.getBookId());
 			Date date = new Date();
@@ -52,8 +54,6 @@ public class StudentDAOImpl implements StudentDAO{
 			reg.setUserId(userId);
 			entityManager.persist(reg);
 			transaction.commit();
-		}else {
-			System.out.println("Book is not available");
 		}
 		return reg;
 	}//end of requestBook

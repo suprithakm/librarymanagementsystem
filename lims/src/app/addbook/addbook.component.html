@@ -1,0 +1,85 @@
+
+<div class="col-md-4 offset-md-4 card card-body mt-5">
+    <div class="spinner-border text-success m-auto" role="status" *ngIf="isLoading">
+        <span class="sr-only">Loading...</span>
+    </div>
+    
+<div class="modal-fade" aria-hidden="true">
+    <form #addForm='ngForm' (ngSubmit)="add(addForm)">
+            <button type="button" class="close" aria-label="Close" (click)="librarianhome();">
+    <span aria-hidden="true">&times;</span>
+  </button>
+        <div class="form-group">
+            <label for="bookId">BookId</label>
+            <input type="text" name="bookId" #bookId='ngModel' ngModel class="form-control mb-3"
+                placeholder="Enter book Id..." required>
+            <div *ngIf="bookId.touched &&  bookId.invalid">
+                <p class="text-danger" *ngIf="bookId.errors.required">Book Id is required</p>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="bookName">Book Name</label>
+            <input type="text" name="bookName" #bookName='ngModel' ngModel class="form-control mb-3"
+                placeholder="Enter book Name..." required>
+            <div *ngIf="bookName.touched &&  bookName.invalid">
+                <p class="text-danger" *ngIf="bookName.errors.required">bookName is required</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="author1">Author 1</label>
+            <input type="text" name="author1" #author1='ngModel' ngModel class="form-control mb-3"
+                placeholder="Enter the author1..." required>
+            <div *ngIf="author1.touched &&  author1.invalid">
+                <p class="text-danger" *ngIf="author1.errors.required">Author1 is required</p>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="author2">Author 2</label>
+            <input type="text" name="author2" #author2='ngModel' ngModel class="form-control mb-3"
+                placeholder="Enter the author2..." required>
+            <div *ngIf="author2.touched &&  author2.invalid">
+                <p class="text-danger" *ngIf="author2.errors.required">Author2 is required</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="publisher">Publisher</label>
+            <input type="text" name="publisher" #publisher='ngModel' ngModel class="form-control mb-3"
+                placeholder="Enter the publisher..." required>
+            <div *ngIf="publisher.touched &&  publisher.invalid">
+                <p class="text-danger" *ngIf="publisher.errors.required">Publisher is required</p>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="yearOfPublication">Year Of Publication</label>
+            <input type="text" name="yearOfPublication" #yearOfPublication='ngModel' ngModel class="form-control mb-3"
+                placeholder="Enter the yearOfPublication..." required>
+            <div *ngIf="yearOfPublication.touched &&  yearOfPublication.invalid">
+                <p class="text-danger" *ngIf="yearOfPublication.errors.required">Year Of Publication is required</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="text" name="image" #image='ngModel' ngModel class="form-control mb-3"
+                placeholder="Enter the image link..." required>
+            <div *ngIf="image.touched &&  image.invalid">
+                <p class="text-danger" *ngIf="image.errors.required">image is required</p>
+            </div>
+        </div>
+
+        <div class="btn-group float-right">
+            <button type="reset" class="btn btn-outline-dark">Reset</button>
+            <button type="submit" class="btn btn-outline-primary">Add </button>
+
+        </div>
+    </form>
+</div>
+</div>

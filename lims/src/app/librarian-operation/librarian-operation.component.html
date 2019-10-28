@@ -1,1 +1,151 @@
-<p>librarian-operation works!</p>
+<div class="container mt-4">
+  <table class="table table-border table-hover table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>BookId</th>
+        <th>BookName</th>
+        <th>author1</th>
+        <th>author2</th>
+        <th>publisher</th>
+        <th>yearOfPublication</th>
+        <th>update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let books of allbooks">
+        <td>{{books.bookId}}</td>
+        <td>{{books.bookName}}</td>
+        <td>{{books.author1}}</td>
+        <td>{{books.author2}}</td>
+        <td>{{books.publisher}}</td>
+        <td>{{books.yearOfPublication}}</td>
+        <td>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+            (click)='selectBook(books)'>
+            Update
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Update Book Details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="callGetBookData()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                  <form #updateForm='ngForm' (ngSubmit)="update(updateForm)">
+
+
+                    <div class="form-group row">
+                      <label for="bookId" class="col-sm-2 col-form-label">BookId</label>
+                      <div class="col-sm-8">
+                        <input type="text" name='bookId' #bookId='ngModel' [(ngModel)]='selectedBook.bookId'
+                          class="form-control mb-3" readonly>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="bookName" class="col-sm-2 col-form-label">bookName</label>
+                      <div class="col-sm-8">
+                        <input type="text" name='bookName' #bookName='ngModel' [(ngModel)]='selectedBook.bookName'
+                          class="form-control mb-3" placeholder="enter book name.." required>
+                        <div *ngIf="bookName.touched &&  bookName.invalid">
+                          <p class="text-danger" *ngIf="bookName.errors.required">bookName is required</p>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="form-group row">
+                      <label for="author1" class="col-sm-2 col-form-label">author1</label>
+                      <div class="col-sm-8">
+                        <input type="text" name='author1' #author1='ngModel' [(ngModel)]='selectedBook.author1'
+                          class="form-control mb-3" placeholder="enter author1.." required>
+                        <div *ngIf="author1.touched &&  author1.invalid">
+                          <p class="text-danger" *ngIf="author1.errors.required">author1 is required</p>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                    <div class="form-group row">
+                      <label for="author2" class="col-sm-2 col-form-label">author2</label>
+                      <div class="col-sm-8">
+                        <input type="text" name='author2' #author2='ngModel' [(ngModel)]='selectedBook.author2'
+                          class="form-control mb-3" placeholder="enter author2.." required>
+                        <div *ngIf="author2.touched &&  author2.invalid">
+                          <p class="text-danger" *ngIf="author2.errors.required">author2 is required</p>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+
+
+
+                    <div class="form-group row">
+                      <label for="publisher" class="col-sm-2 col-form-label">publisher</label>
+                      <div class="col-sm-8">
+                        <input type="text" name='publisher' #publisher='ngModel' [(ngModel)]='selectedBook.publisher'
+                          class="form-control mb-3" placeholder="enter publisher.." required>
+                        <div *ngIf="publisher.touched &&  publisher.invalid">
+                          <p class="text-danger" *ngIf="publisher.errors.required">publisher is required</p>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+
+                    <div class="form-group row">
+                      <label for="yearOfPublication" class="col-sm-2 col-form-label">YOP</label>
+                      <div class="col-sm-8">
+                        <input type="text" name='yearOfPublication' #yearOfPublication='ngModel'
+                          [(ngModel)]='selectedBook.yearOfPublication' class="form-control mb-3"
+                          placeholder="enter yearOfPublication.." required>
+                        <div *ngIf="yearOfPublication.touched &&  yearOfPublication.invalid">
+                          <p class="text-danger" *ngIf="yearOfPublication.errors.required">yearOfPublication is required
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+
+                    <div class="btn-group float-right">
+                      <button type="reset" class="btn btn-outline-dark">Reset</button>
+                      <button type="submit" class="btn btn-outline-dark">submit</button>
+                    </div>
+                  </form>
+
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </td>
+
+        <td>
+          <button class="btn btn-outline-danger" (click)="delete(books)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>

@@ -17,5 +17,5 @@ public interface LibrarianDAO {
 	public List<BooksTransaction> showAllIssuedBooks();
 	public List<BooksRegistration> showAllRequests();
 	public BooksTransaction acceptRequest(String registrationId);
-	public BooksTransaction addFine(String registrationId, Date returnDate);
+	public BooksTransaction returnBook(String registrationId, Date returnDate);
 }

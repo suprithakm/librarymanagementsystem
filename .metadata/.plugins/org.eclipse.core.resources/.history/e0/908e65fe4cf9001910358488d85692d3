@@ -1,0 +1,21 @@
+package com.capgemini.librarymanagementsystem.test;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.capgemini.librarymanagementsystem.dao.AdminDAO;
+
+public class AdminTestCases{
+
+	@Autowired
+	AdminDAO admin;
+
+	@Test
+	void deleteCase1() {
+		boolean result=admin.deleteUser("101");
+		assertEquals(true, result);
+	}
+
+}

@@ -119,24 +119,20 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 	public List<BooksTransaction> showAllIssuedBooks() {
 		
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
-
-		String viewRegistrationDetails="from BooksRegistration where userId =: userId";
-		Query query=entityManager.createQuery(viewRegistrationDetails);
-		
-		List<BooksRegistration> bookDetails=query.getResultList();
-		
-		String viewTransaction="from BooksTransaction where registrationId =: registrationId";
-		query=entityManager.createQuery(viewTransaction);
-		List<BooksTransaction> bookTransactions;
+		String viewTransaction="from BooksTransaction";
 		
 		List<BooksTransaction> resultSet=new ArrayList<BooksTransaction>();
+		Query query=null;
+		try {
+				
 		
-		if(bookDetails.size()>0) {
-			for(BooksRegistration registration:bookDetails) {
-				query.setParameter("registrationId", registration.getRegistrationId());
-				bookTransactions=query.getResultList();
-				resultSet.addAll(bookTransactions);
-			}
+		query=entityManager.createQuery(viewTransaction);
+		
+		 resultSet=query.getResultList();
+		
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 		}
 		return resultSet;
 	}//end of showIssuedBooks
@@ -191,11 +187,10 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		}
 		return trans;
 	}//end of acceptRequest
-
 	
 
 	@Override
-	public BooksTransaction addFine(String registrationId,Date returnDate) {
+	public BooksTransaction returnBook(String registrationId,Date returnDate) {
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
 		transaction.begin();
@@ -210,8 +205,8 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		BooksTransaction bookPresent=entityManager.find(BooksTransaction.class,book.getTransactionId());
 		
 		int days=(int)((returnDate.getTime()-rtn.getTime())/(1000*60*60*24));
-		if((days-15)>0) {
-			bookPresent.setFine((days-15)*1.0);
+		if(days>0) {
+			bookPresent.setFine((days)*1.0);
 		}else {
 			bookPresent.setFine(book.getFine());
 		}
@@ -219,15 +214,16 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		bookPresent.setRegistrationId(book.getRegistrationId());
 		bookPresent.setReturnDate(returnDate);
 		bookPresent.setTransactionId(book.getTransactionId());
-
+		transaction.commit();
+		transaction.begin();
 		String select="from BooksRegistration where registrationId=:registrationId";
 		Query query1=entityManager.createQuery(select);
 
-		query.setParameter("registrationId", bookPresent.getRegistrationId());
+		query1.setParameter("registrationId", bookPresent.getRegistrationId());
 		BooksRegistration bookDelete=null;
 		
 		try {
-			bookDelete=(BooksRegistration)query.getSingleResult();
+			bookDelete=(BooksRegistration)query1.getSingleResult();
 			entityManager.remove(bookDelete);
 			transaction.commit();
 

@@ -1,2 +1,40 @@
 <app-header [islibrarianlogin]='true'></app-header>
 <h1 align=center>welcome to librarian home page</h1>
+
+
+<div class="container mt-4">
+    <table class="table table-border table-hover table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Registration Id</th>
+                <th>Book Id</th>
+                <th>Registration Date</th>
+                <th>User Id</th>
+                <th>Accept</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let books of allreq">
+                <td>{{books.registrationId}}</td>
+                <td>{{books.bookId}}</td>
+                <td>{{books.registrationDate}}</td>
+                <td>{{books.userId}}</td>
+                <td>
+                    <button *ngIf='!request' type="button" class="btn btn-success" data-toggle="modal"
+                        data-target="#exampleModal" (click)='acceptRequest(books.registrationId)'>
+                        Accept
+                    </button>
+                    <button *ngIf='request' type="button" class="btn btn-primary" disabled data-toggle="modal"
+                        data-target="#exampleModal" (click)='acceptRequest(books.registrationId)'>
+                        Issued
+                    </button>
+
+                </td>
+
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>

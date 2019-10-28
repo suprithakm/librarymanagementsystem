@@ -50,8 +50,8 @@ public class LibrarianController {
 
 	}//end of updateBooks
 
-	@DeleteMapping("deleteBooks")
-	public boolean deleteBooks(String bookId) {
+	@DeleteMapping("deleteBooks/{bookId}")
+	public boolean deleteBooks(@PathVariable(name="bookId") String bookId) {
 		if(librarian.deleteBooks(bookId)) {
 			return true;
 		}else {
@@ -61,21 +61,18 @@ public class LibrarianController {
 	}//end of deleteBooks
 
 	@GetMapping("showAllIssuedBook/{userId}")
-	@ResponseBody
 	public List<BooksTransaction> showAllIssueBook(@PathVariable(name="userId") String userId) {
 		List<BooksTransaction> bookList=librarian.showAllIssuedBooks(userId);
 		return bookList;
 	}//end of showAllIssuedBooks
 
 	@GetMapping("showAllIssuedBooks")
-	@ResponseBody
 	public List<BooksTransaction> showAllIssuedBook() {
 		List<BooksTransaction> bookList=librarian.showAllIssuedBooks();
 		return bookList;
 	}//end of showAllIssuedBooks
 
 	@GetMapping("showAllRequests")
-	@ResponseBody
 	public List<BooksRegistration> showAllRequest() {
 		List<BooksRegistration> bookList=librarian.showAllRequests();
 		return bookList;
@@ -83,17 +80,15 @@ public class LibrarianController {
 	
 	
 	@GetMapping("acceptRequest/{registrationId}")
-	@ResponseBody
 	public BooksTransaction acceptReq(@PathVariable(name="registrationId") String registrationId) {
 		BooksTransaction trans=librarian.acceptRequest(registrationId);
 		return trans;
 	}//end of acceptRequest
 	
 	
-	@GetMapping("addFine")
-	@ResponseBody
-	public BooksTransaction addFinee(@RequestBody BooksTransaction trans1) {
-		BooksTransaction trans=librarian.addFine(trans1.getRegistrationId(),trans1.getReturnDate());
+	@GetMapping("returnBook/{registrationId}/{returnDate}")
+	public BooksTransaction rtnBook(@PathVariable(name="registrationId") String registrationId,@PathVariable(name="returnDate") Date returnDate) {
+		BooksTransaction trans=librarian.returnBook(registrationId,returnDate);
 		return trans;
 	}//end of acceptRequest
 }

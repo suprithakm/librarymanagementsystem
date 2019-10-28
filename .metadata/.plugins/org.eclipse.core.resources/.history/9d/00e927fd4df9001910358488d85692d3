@@ -1,0 +1,27 @@
+package com.capgemini.librarymanagementsystem.test;
+
+import org.junit.jupiter.api.Test;
+
+import com.capgemini.librarymanagementsystem.dao.AdminDAO;
+
+import junit.framework.TestCase;
+
+
+public class AdminTest extends TestCase {
+
+AdminDAO adminDao=new AdminDAOImpl();
+	
+	@Test
+	public void list() {
+		boolean result=adminDao.adminLogin(101, "admin12345");
+		assertEquals(true, result);
+	}
+	
+	@Test
+	public void testowner() {
+		boolean res = adminDao.addBusCheck(101);
+		assertEquals(true, res);
+	}
+	
+}
+

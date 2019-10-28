@@ -1,32 +1,118 @@
+<div class="container mt-4">
+  <table class="table table-border table-hover table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>User Id</th>
+        <th>User Name</th>
+        <th>password</th>
+        <th>Email</th>
+        <th>Type</th>
+        <th>update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let users of allusers">
+        <td>{{users.userId}}</td>
+        <td>{{users.userName}}</td>
+        <td>{{users.password}}</td>
+        <td>{{users.emailId}}</td>
+        <td>{{users.type}}</td>
+        <td>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+            (click)='selectUser(users)'>
+            Update
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Update User Details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="callGetUserData()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                  <form #updateForm='ngForm' (ngSubmit)="update(updateForm)">
+                    <div class="form-group row">
+                      <label for="userId" class="col-sm-2 col-form-label">User Id</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='userId' #userId='ngModel' [(ngModel)]='selectedUser.userId'
+                          class="form-control mb-3" readonly>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="userName" class="col-sm-2 col-form-label">UserName</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='userName' #userName='ngModel' [(ngModel)]='selectedUser.userName'
+                          class="form-control mb-3" placeholder="enter user name.." required>
+                        <div *ngIf="userName.touched &&  userName.invalid">
+                          <p class="text-danger" *ngIf="userName.errors.required">username is required</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="emailId" class="col-sm-2 col-form-label">EmailId</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='emailId' #emailId='ngModel' [(ngModel)]='selectedUser.emailId'
+                          class="form-control mb-3" placeholder="enter email.." required>
+                        <div *ngIf="emailId.touched && emailId.invalid">
+                          <p class="text-danger" *ngIf="emailId.errors.required">EmailId is required</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="password" class="col-sm-2 col-form-label">Password</label>
+                      <div class="col-sm-10">
+                        <input type="password" name='password' #password='ngModel' [(ngModel)]='selectedUser.password'
+                          class="form-control mb-3" placeholder="enter password.." required>
+                        <div *ngIf="password.touched && password.invalid">
+                          <p class="text-danger" *ngIf="password.errors.required">Password is required</p>
+                        </div>
+                      </div>
+                    </div>
 
 
+                    <div class="form-group row">
+                      <label for="type" class="col-sm-2 col-form-label">Type</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='type' #type='ngModel' [(ngModel)]='selectedUser.type'
+                          class="form-control mb-3" placeholder="enter type.." required>
+                        <div *ngIf="type.touched && type.invalid">
+                          <p class="text-danger" *ngIf="type.errors.required">Type is required</p>
+                        </div>
+                      </div>
+                    </div>
 
-<div class="col-md-4 offset-md-4 card card-body mt-5">
-    <div class="spinner-border text-success m-auto" role="status" *ngIf = "isLoading">
-            <span class="sr-only">Loading...</span>
+                    <div class="btn-group float-right">
+                      <button type="reset" class="btn btn-outline-dark">Reset</button>
+                      <button type="submit" class="btn btn-outline-dark">submit</button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
           </div>
-          
-    <form #addForm = 'ngForm' (ngSubmit)="add(addForm)" *ngIf=isadd >
-        <input type="number" name="userId" #userId = 'ngModel' ngModel
-        class="form-control mb-3" placeholder="Enter user Id...">
+        </td>
 
-        <input type="text" name="userName" #userName = 'ngModel' ngModel
-        class="form-control mb-3" placeholder="Enter the user Name...">
+        <td>
+          <button class="btn btn-outline-danger" (click)="delete(users)">Delete</button>
+        </td>
 
-        <input type="email" name="emailId" #emailId = 'ngModel' ngModel
-        class="form-control mb-3" placeholder="Enter the emailId...">
+      </tr>
+    </tbody>
 
-        <input type="password" name="password" #password = 'ngModel' ngModel
-        class="form-control mb-3" placeholder="Enter the password...">
+  </table>
 
-        <input type="text" name="type" #type = 'ngModel' ngModel
-        class="form-control mb-3" placeholder="Enter the type...">
-        
-        <div class="btn-group float-right">
-            <button type="reset" class="btn btn-outline-dark">Reset</button>
-            <button type="submit" class="btn btn-outline-primary">Add </button>
-
-        </div>
-    </form>
 </div>
-

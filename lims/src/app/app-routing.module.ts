@@ -9,6 +9,9 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { LibrarianHomeComponent } from './librarian-home/librarian-home.component';
 import { StudentHomeComponent } from './student-home/student-home.component';
 import { HeaderComponent } from './header/header.component';
+import { AdduserComponent } from './adduser/adduser.component';
+import { AddbookComponent } from './addbook/addbook.component';
+import { LibrarianComponent } from './librarian/librarian.component';
 
 
 const routes: Routes = [
@@ -18,9 +21,13 @@ const routes: Routes = [
 {path:'admin-operation',component:AdminOperationComponent},
 {path:'librarian-operation',component:LibrarianOperationComponent},
 {path:'student-operation',component:StudentOperationComponent},
+{path:'librarian-operation',component:LibrarianOperationComponent},
 {path:'admin-home',component:AdminHomeComponent},
 {path:'librarian-home',component:LibrarianHomeComponent},
 {path:'student-home',component:StudentHomeComponent},
+{path:'adduser',component:AdduserComponent},
+{path:'addbook',component:AddbookComponent},
+{path:'librarian',component:LibrarianComponent}
 
 ];
 

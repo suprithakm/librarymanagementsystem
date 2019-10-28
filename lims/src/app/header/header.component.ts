@@ -15,12 +15,11 @@ export class HeaderComponent implements OnInit {
   constructor(private router:Router) { }
  
    logout(){
+     alert('Logged out successfully');
     this.router.navigateByUrl('login')
   }
 
-  add(){
-   const isadd=true;
-  }
+  
   ngOnInit() {
   }
 

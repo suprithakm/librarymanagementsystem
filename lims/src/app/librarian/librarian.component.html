@@ -1,0 +1,24 @@
+<div class="container mt-4">
+    <table class="table table-border table-hover table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Transaction Id</th>
+                <th>Fine</th>
+                <th>Book Issued Date</th>
+                <th>Registration Id</th>
+                <th>Book Return Date</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let books of allissued">
+                <td>{{books.transactionId}}</td>
+                <td>{{books.fine}}</td>
+                <td>{{books.issueDate}}</td>
+                <td>{{books.registrationId}}</td>
+                <td>{{books.returnDate}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

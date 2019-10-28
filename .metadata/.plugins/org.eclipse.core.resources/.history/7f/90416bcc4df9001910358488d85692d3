@@ -1,0 +1,10 @@
+package com.capgemini.librarymanagementsystem.test;
+
+import com.capgemini.librarymanagementsystem.dao.AdminDAOImpl;
+
+
+public class AdminTest {
+
+	AdminDao dao=new AdminDAOImpl();
+	
+}

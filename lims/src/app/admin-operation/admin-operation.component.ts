@@ -11,28 +11,69 @@ import { NgForm } from '@angular/forms';
 export class AdminOperationComponent implements OnInit {
 
 
-  constructor(private service:CommonService) { }
-  add(addForm:NgForm){
-    if(addForm.value.type==="librarian"){
-    this.service.addLibrarian(addForm.value).subscribe(resData=>{
-      if(resData){
-        addForm.reset();
-        alert('librarian added successfully');
-      }else{
-        alert('librarian already exist');
-      }
-    })
-  }else if(addForm.value.type==="student"){
-    this.service.addStudent(addForm.value).subscribe(resData=>{
-      if(resData){
-        addForm .reset();
-        alert('student added successfully');
-      }else{
-        alert('student already exist');
-      }
-    })
+  
+  selectedUser={
+    userId:null,
+    userName:null,
+    emailId:null,
+    password:null,
+    type :null,
   }
-}
+allusers=[];
+
+
+  constructor(private service:CommonService ) 
+    {
+      this.callGetUserData();
+    }
+   
+
+   selectUser(users) {
+    this.selectedUser = users;
+  }
+
+   callGetUserData(){
+  this.service.getAllUser().subscribe(resData =>{
+    console.log(resData);
+   this.allusers=resData;
+  
+    });
+
+ }
+
+ update(updateForm: NgForm){
+  this.service.updateUser(updateForm.value)
+  .subscribe(resData=>{
+    if(resData){
+    console.log(resData);
+    updateForm.reset();
+    alert("updated successfully");
+    this.callGetUserData();
+    }else{
+      alert('updation failed');
+    }
+  }, err=>{
+    console.log(err);
+  });
+    }
+  
+    delete(users) {
+      console.log(users);
+      this.service.deleteUser(users).subscribe(resData=> {
+        if(resData){
+        console.log(resData);
+        alert('deleted successfully')
+        this.callGetUserData();
+        }else{
+          console.log(resData)
+          alert('deletion failed')
+        }
+      }, err=> {
+        console.log(err);
+      });
+    }
+
+
   ngOnInit() {
   }
 

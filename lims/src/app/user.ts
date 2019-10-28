@@ -1,8 +1,7 @@
 export class User {
-    id: number;
-    name: string;
+    userId: number;
+    userName: string;
     password: string;
-    email: string;
-    contact: string;
+    emailId: string;
     type:String;
 }

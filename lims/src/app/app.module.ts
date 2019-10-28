@@ -14,7 +14,11 @@ import { HttpClientModule} from '@angular/common/http';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { LibrarianHomeComponent } from './librarian-home/librarian-home.component';
 import { StudentHomeComponent } from './student-home/student-home.component';
-import { AdduserComponent } from './adduser/adduser.component'
+import { AdduserComponent } from './adduser/adduser.component';
+import { AddbookComponent } from './addbook/addbook.component';
+import { FilterPipe } from './filter.pipe';
+import { CutPipe } from './custom.pipe';
+import { LibrarianComponent } from './librarian/librarian.component'
 
 
 @NgModule({
@@ -30,7 +34,11 @@ import { AdduserComponent } from './adduser/adduser.component'
     AdminHomeComponent,
     LibrarianHomeComponent,
     StudentHomeComponent,
-    AdduserComponent
+    AdduserComponent,
+    AddbookComponent,
+    FilterPipe,
+    CutPipe,
+    LibrarianComponent
   ],
   imports: [
     BrowserModule,

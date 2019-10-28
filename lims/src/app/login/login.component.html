@@ -1,26 +1,28 @@
-<div class="col-md-4 offset-md-3 mt-4 card card-body">
-    <h4 class="border-botton" align=center>Login</h4>
-    <div class="spinner-border text-success m-auto" role="status" *ngIf = "isLoading">
+<div class="col-md-4 offset-md-3 mt-4 card card-body border border-secondary" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAIOxfWcKY8GHOJqNpbgG3h4nrclObwybtjfjeKnPVcTZcxze8&s'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <h4 class="border-bottom text-muted" align=center>Login</h4>
+    <div class="spinner-border text-success m-auto" role="status" *ngIf="isLoading">
         <span class="sr-only">Loading...</span>
-      </div>
-    <form #loginForm='ngForm' (ngSubmit)='login(loginForm)'   *ngIf = "!isLoading">
-        <div class="form-group">
-        <input type="number" name="userId" placeholder="Enter id..."
-        #userId='ngModel' ngModel  class="form-control mb-3" required >
-        <div *ngIf="userId.touched &&  userId.invalid">
-            <p class=" alert alert-danger" *ngIf="userId.errors.required" >userId is required</p>
-        </div>
-   
-    
-        <input type="password" name="password" placeholder="Enter Password..."
-        #password='ngModel'  ngModel class="form-control mb-3" required>
-        <div   *ngIf="password.touched &&  password.invalid">
-        <p class=" alert alert-danger" *ngIf="password.errors.required">password is required</p>
-        </div>
     </div>
-        <input type="submit" value="login" class="btn btn-outline-primary float-right" [disabled]='loginForm.invalid'>
+    <form #loginForm='ngForm' (ngSubmit)='login(loginForm)' *ngIf="!isLoading"  >
+        <div class="form-group">
+            <label for="userId">Enter User Id</label>
+            <input type="text" name="userId" #userId='ngModel' ngModel class="form-control mb-3" required>
+            <div *ngIf="userId.touched &&  userId.invalid">
+                <p class="text-danger" *ngIf="userId.errors.required">userId is required</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Enter password</label>
+            <input type="password" name="password" #password='ngModel' ngModel
+                class="form-control mb-3" required>
+            <div *ngIf="password.touched &&  password.invalid">
+                <p class="text-danger" *ngIf="password.errors.required">password is required</p>
+            </div>
+        </div>
+        <input type="submit" value="login" class="btn btn-secondary btn-rounded float-right" [disabled]='loginForm.invalid'>
 
     </form>
-    </div>
-    
-  
+</div>
+
+
+

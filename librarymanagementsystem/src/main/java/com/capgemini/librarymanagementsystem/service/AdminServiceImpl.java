@@ -15,7 +15,6 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	AdminDAO dao;
 	
-	
 	RegexInfo regex=new RegexInfo();
 
 	@Override

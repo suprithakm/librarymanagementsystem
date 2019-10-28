@@ -1,0 +1,218 @@
+package com.capgemini.librarymanagementsystem.dao;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
+
+import com.capgemini.librarymanagementsystem.beans.BooksInventory;
+import com.capgemini.librarymanagementsystem.beans.BooksRegistration;
+import com.capgemini.librarymanagementsystem.beans.BooksTransaction;
+
+@Repository
+public class LibrarianDAOImpl implements LibrarianDAO{
+
+	@PersistenceUnit
+	EntityManagerFactory entityManagerFactory;
+	
+	@Override
+	public boolean addBooks(BooksInventory books) {
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		EntityTransaction transaction=entityManager.getTransaction();
+		transaction.begin();
+		boolean isAdded=false;
+		
+		try {
+				entityManager.persist(books);
+				transaction.commit();
+				isAdded=true;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		entityManager.close();
+		return isAdded;
+	}//end of addBooks
+
+	@Override
+	public boolean updateBooks(BooksInventory books) {
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		EntityTransaction transaction=entityManager.getTransaction();
+		transaction.begin();
+
+		BooksInventory bookPresent=entityManager.find(BooksInventory.class,books.getBookId());
+		try {
+
+			bookPresent.setBookName(books.getBookName());
+			bookPresent.setAuthor1(books.getAuthor1());
+			bookPresent.setAuthor2(books.getAuthor2());
+			bookPresent.setBookId(books.getBookId());
+			bookPresent.setPublisher(books.getPublisher());
+			bookPresent.setYearOfPublication(books.getYearOfPublication());
+			bookPresent.setImage(books.getImage());
+
+			transaction.commit();
+			return true;
+
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		entityManager.close();
+		return false;
+	}//end of updateBooks
+
+	@Override
+	public boolean deleteBooks(String bookId) {
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		EntityTransaction transaction=entityManager.getTransaction();
+		transaction.begin();
+		BooksInventory book=entityManager.find(BooksInventory.class, bookId);
+		try {
+			
+			entityManager.remove(book);
+			transaction.commit();
+			entityManager.close();
+			return true;			
+		} catch (Exception e) {
+			entityManager.close();
+			e.printStackTrace();
+		}
+		return false;
+	}//end of deleteBooks
+
+	@Override
+	public List<BooksTransaction> showAllIssuedBooks(String userId) {
+		
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+
+		String viewRegistrationDetails="from BooksRegistration where userId =: userId";
+		Query query=entityManager.createQuery(viewRegistrationDetails);
+		query.setParameter("userId", userId);
+		
+		List<BooksRegistration> bookDetails=query.getResultList();
+		
+		String viewTransaction="from BooksTransaction where registrationId =: registrationId";
+		query=entityManager.createQuery(viewTransaction);
+		List<BooksTransaction> bookTransactions;
+		
+		List<BooksTransaction> resultSet=new ArrayList<BooksTransaction>();
+		
+		if(bookDetails.size()>0) {
+			for(BooksRegistration registration:bookDetails) {
+				query.setParameter("registrationId", registration.getRegistrationId());
+				bookTransactions=query.getResultList();
+				resultSet.addAll(bookTransactions);
+			}
+		}
+		return resultSet;
+	}//end of showIssuedBooks
+
+	@Override
+	public List<BooksRegistration> showAllRequests() {
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+
+		String viewRegistrationDetails="from BooksRegistration";
+		Query query=entityManager.createQuery(viewRegistrationDetails);
+		
+		List<BooksRegistration> bookDetails=new ArrayList<BooksRegistration>();
+		bookDetails=query.getResultList();
+		return bookDetails;
+	}//end of showAllRequests
+
+	@Override
+	public BooksTransaction acceptRequest(String registrationId) {
+		
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		EntityTransaction transaction=entityManager.getTransaction();
+		transaction.begin();
+
+		String viewRegistrationDetails="from BooksRegistration where registrationId=:registrationId";
+		Query query=entityManager.createQuery(viewRegistrationDetails);
+		query.setParameter("registrationId",registrationId);
+		BooksTransaction trans=null;
+		try {
+		BooksRegistration bookDetails=(BooksRegistration)query.getSingleResult();
+		
+		Random random=new Random();
+		int transactionId=random.nextInt();
+		if(transactionId<0) {
+			transactionId=transactionId*(-1);
+		}
+		
+		 trans=new BooksTransaction();
+		trans.setRegistrationId(bookDetails.getRegistrationId());
+		trans.setTransactionId(Integer.toString(transactionId));
+		trans.setIssueDate(bookDetails.getRegistrationDate());
+		trans.setFine(0.0);
+		
+		Calendar cal=Calendar.getInstance();
+		cal.setTime(bookDetails.getRegistrationDate());
+		cal.add(Calendar.DATE, 14);
+		trans.setReturnDate(cal.getTime());
+		
+		entityManager.persist(trans);
+		transaction.commit();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return trans;
+	}//end of acceptRequest
+
+	
+
+	@Override
+	public BooksTransaction addFine(String registrationId,Date returnDate) {
+		EntityManager entityManager=entityManagerFactory.createEntityManager();
+		EntityTransaction transaction=entityManager.getTransaction();
+		transaction.begin();
+		
+		String viewTransactionDetails="from BooksTransaction where registrationId=:registrationId";
+		Query query=entityManager.createQuery(viewTransactionDetails);
+		query.setParameter("registrationId",registrationId);
+		
+		BooksTransaction book=(BooksTransaction)query.getSingleResult();
+		Date rtn=book.getReturnDate();
+		
+		BooksTransaction bookPresent=entityManager.find(BooksTransaction.class,book.getTransactionId());
+		
+		int days=(int)((returnDate.getTime()-rtn.getTime())/(1000*60*60*24));
+		if((days-15)>0) {
+			bookPresent.setFine((days-15)*1.0);
+		}else {
+			bookPresent.setFine(book.getFine());
+		}
+		bookPresent.setIssueDate(book.getIssueDate());
+		bookPresent.setRegistrationId(book.getRegistrationId());
+		bookPresent.setReturnDate(returnDate);
+		bookPresent.setTransactionId(book.getTransactionId());
+
+		String select="from BooksRegistration where registrationId=:registrationId";
+		Query query1=entityManager.createQuery(select);
+
+		query.setParameter("registrationId", bookPresent.getRegistrationId());
+		BooksRegistration bookDelete=null;
+		
+		try {
+			bookDelete=(BooksRegistration)query.getSingleResult();
+			entityManager.remove(bookDelete);
+			transaction.commit();
+
+		}catch(Exception e) {
+			transaction.rollback();
+		}
+		entityManager.close();
+		
+		return book;
+	}//end of addFine
+
+	
+
+}

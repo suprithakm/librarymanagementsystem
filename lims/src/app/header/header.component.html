@@ -1,143 +1,39 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-dark">
 
-<nav class="navbar navbar-expand-sm navbar-dark bg-primary" >
+    <h1 class="navbar-brand text-light" href="#">LibraryManagementSystem</h1>
 
-    
-        <a class="navbar-brand" href="#">LibraryManagementSyste</a>
-       
-        <div  class="fa fa-align-center" aria-hidden="true">
-            
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0" *ngIf='!homeclicked && !islibrarianlogin && !isadminlogin && !isstudentlogin'>
-    
-                    <li class="nav-item active"  >
-                        
-                            <a class="nav-link" href="home">Home <span class="sr-only">(current)</span></a>
-                           
-                        </li>
-    
-                 </ul>
-    
-            
-                       
-                        <ul  class="navbar-nav ml-auto mt-2 mt-lg-0" *ngIf='homeclicked && !islogin'>
-          
-    
-                        <li class="nav-item active" >
-                                <a class="nav-link" href="login">Login <span class="sr-only">(current)</span></a>
-                            </li>
-                
-                        </ul>
-    
-    
-                
-        </div>
-        <ul  *ngIf='isadminlogin' >
-    
-                        <div class="dropdown" >
-                               
-                                <button class="btn btn-dark dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                            adminoperations
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="triggerId">
-    
-                       
-                            <li class="nav-item active" >
-                                    <a class="nav-link" href="admin-operation"(click)=add()>adduser <span class="sr-only">(current)</span></a>
-                                </li>
-                    
-                                <li class="nav-item active" >
-                                    <a class="nav-link" href="admin-operation">updateowner<span class="sr-only">(current)</span></a>
-                                </li>
-                    
-                                <li class="nav-item active" >
-                                    <a class="nav-link" href="admin-operation">deleteowner <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="nav-item active" >
-                                        <a class="nav-link" href="admin-operation">showallstudent <span class="sr-only">(current)</span></a>
-                                    </li>
-    
-                                <li class="nav-item-active" >
-                                        <a class="nav-link" routerLink="logout" (click)='logout()'>logout</a>
-                                    </li>
-                           
-                            </div>
-                        </div>
-                    </ul>   
-    
-                    <ul  *ngIf='islibrarianlogin' >
-    
-                            <div class="dropdown" >
-                                   
-                                    <button class="btn btn-dark dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                                owneroperations
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="triggerId">
+    <div class="fa fa-align-center" aria-hidden="true">
+
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0"
+            *ngIf='!homeclicked && !islibrarianlogin && !isadminlogin && !isstudentlogin'>
+
+            <li class="nav-item active">
+
+                <a class="nav-link text-light" href="home">Home</a>
+
+            </li>
+
+        </ul>
         
-                           
-                                <li class="nav-item active" >
-                                        <a class="nav-link" href="addbus">addbus <span class="sr-only">(current)</span></a>
-                                    </li>
-                        
-                                    <li class="nav-item active" >
-                                        <a class="nav-link" href="updatebus ">updatebus <span class="sr-only">(current)</span></a>
-                                    </li>
-                        
-                                    <li class="nav-item active" >
-                                        <a class="nav-link" href="deletebus ">deletebus  <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item active" >
-                                            <a class="nav-link" href="showallbus ">showallbus  <span class="sr-only">(current)</span></a>
-                                        </li>
-                                        <li class="nav-item active" >
-                                                <a class="nav-link" href="searchbus ">searchbus  <span class="sr-only">(current)</span></a>
-                                            </li>
-        
-                                    <li class="nav-item-active" >
-                                            <a class="nav-link" routerLink="logout" (click)='logout()'>logout</a>
-                                        </li>
-                               
-                                </div>
-                            </div>
-                        </ul>   
-    
-    
-                        <ul  *ngIf='isstudentlogin' >
-    
-                                <div class="dropdown" >
-                                       
-                                        <button class="btn btn-dark dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                    cusstomeroperations
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="triggerId">
-            
-                               
-                                    <li class="nav-item active" >
-                                            <a class="nav-link" href="updateprofile">updateprofile <span class="sr-only">(current)</span></a>
-                                        </li>
-                            
-                                        <li class="nav-item active" >
-                                            <a class="nav-link" href="deleteprofile ">deleteprofile <span class="sr-only">(current)</span></a>
-                                        </li>
-                            
-                                        <li class="nav-item active" >
-                                            <a class="nav-link" href="bookticket ">bookticket  <span class="sr-only">(current)</span></a>
-                                        </li>
-                                        <li class="nav-item active" >
-                                                <a class="nav-link" href="showallbus ">showallbus  <span class="sr-only">(current)</span></a>
-                                            </li>
-                                            <li class="nav-item active" >
-                                                    <a class="nav-link" href="searchbus ">searchbus  <span class="sr-only">(current)</span></a>
-                                                </li>
-            
-                                        <li class="nav-item-active" >
-                                                <a class="nav-link" routerLink="logout" (click)='logout()'>logout</a>
-                                            </li>
-                                   
-                                    </div>
-                                </div>
-                            </ul>   
-            </nav>
-                
-        
+    </div>
+    <ul  class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+
+        <a class="nav-link text-light " *ngIf='isadminlogin' href="adduser">Add Student Details | <span class="sr-only">(current)</span></a>
+
+        <a class="nav-link text-light " *ngIf='isadminlogin' href="admin-operation">Student Details <span class="sr-only">(current)</span></a>
+
+        <a class="nav-link text-light " *ngIf='islibrarianlogin' href="addbook">Add Book | <span class="sr-only">(current)</span></a>
+
+        <a class="nav-link text-light " *ngIf='islibrarianlogin' href="librarian-operation ">View All Books |<span
+                class="sr-only">(current)</span></a>
+        <a class="nav-link text-light " *ngIf='islibrarianlogin' href="librarian">View All Issued Books |<span class="sr-only">(current)</span></a>
+
+        <a class="nav-link text-light " *ngIf='isstudentlogin' href="student-operation">show books</a>
+    </ul>
+
+    <a class="nav-link text-light float-right" *ngIf='isstudentlogin||isadminlogin||islibrarianlogin '
+        routerLink="logout" (click)='logout()'>Logout</a>
+
+        <a class="nav-link text-light float-right" *ngIf='homeclicked && !islogin' href="login">Login <span class="sr-only">(current)</span></a>
+</nav>
