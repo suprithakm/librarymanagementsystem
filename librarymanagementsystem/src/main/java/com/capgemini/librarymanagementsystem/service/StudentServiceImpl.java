@@ -12,8 +12,7 @@ import com.capgemini.librarymanagementsystem.validation.RegexInfo;
 public class StudentServiceImpl implements StudentService{
 
 	@Autowired
-	StudentDAO dao;
-	
+	private StudentDAO dao;
 	
 	RegexInfo regex=new RegexInfo();
 	
@@ -24,9 +23,6 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public boolean cancelRequest(String registrationId, String userId) {
-	
 			return dao.cancelRequest(registrationId, userId);
-		
 	}
-
 }

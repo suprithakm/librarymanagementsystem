@@ -13,7 +13,7 @@ import com.capgemini.librarymanagementsystem.validation.RegexInfo;
 public class AdminServiceImpl implements AdminService{
 
 	@Autowired
-	AdminDAO dao;
+	private AdminDAO dao;
 	
 	RegexInfo regex=new RegexInfo();
 
@@ -47,9 +47,8 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<Users> showAllUser() {
 		return dao.showAllUser();
-	}
+	}//end of showAllUser
 
-	
 
 	@Override
 	public Users searchUser(String userId) {
@@ -58,7 +57,7 @@ public class AdminServiceImpl implements AdminService{
 		}else {
 			return null;
 		}
-	}
+	}//end of searchUser
 	
 
 }//end of AdminServiceImpl

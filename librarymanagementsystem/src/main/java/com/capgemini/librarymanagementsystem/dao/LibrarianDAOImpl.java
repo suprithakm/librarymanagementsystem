@@ -205,8 +205,9 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		String viewTransactionDetails="from BooksTransaction where registrationId=:registrationId";
 		Query query=entityManager.createQuery(viewTransactionDetails);
 		query.setParameter("registrationId",registrationId);
+		BooksTransaction book=null;
 		
-		BooksTransaction book=(BooksTransaction)query.getSingleResult();
+		 book=(BooksTransaction)query.getSingleResult();
 		Date rtn=book.getReturnDate();
 		
 		BooksTransaction bookPresent=entityManager.find(BooksTransaction.class,book.getTransactionId());
@@ -237,6 +238,7 @@ public class LibrarianDAOImpl implements LibrarianDAO{
 		}catch(Exception e) {
 			transaction.rollback();
 		}
+		
 		entityManager.close();
 		
 		return book;

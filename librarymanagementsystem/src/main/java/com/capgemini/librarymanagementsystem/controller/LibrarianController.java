@@ -87,7 +87,7 @@ public class LibrarianController {
 	}//end of acceptRequest
 	
 	
-	@GetMapping("returnBook/{returnDate}/{registrationId}")
+	@PostMapping("returnBook/{returnDate}/{registrationId}")
 	public BooksTransaction rtnBook(@PathVariable(name="returnDate") String returnDate, @PathVariable(name="registrationId") String registrationId) {
 		Date rtnDate;
 		try {

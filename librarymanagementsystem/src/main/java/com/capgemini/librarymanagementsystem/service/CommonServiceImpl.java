@@ -14,7 +14,7 @@ import com.capgemini.librarymanagementsystem.validation.RegexInfo;
 public class CommonServiceImpl implements CommonService{
 
 	@Autowired
-	CommonDAO dao;
+	private CommonDAO dao;
 	
 	
 	RegexInfo regex=new RegexInfo();

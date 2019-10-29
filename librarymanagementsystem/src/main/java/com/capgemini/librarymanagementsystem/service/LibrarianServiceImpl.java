@@ -16,7 +16,7 @@ import com.capgemini.librarymanagementsystem.validation.RegexInfo;
 public class LibrarianServiceImpl implements LibrarianService{
 
 	@Autowired
-	LibrarianDAO dao;
+	private LibrarianDAO dao;
 	
 	
 	RegexInfo regex=new RegexInfo();
