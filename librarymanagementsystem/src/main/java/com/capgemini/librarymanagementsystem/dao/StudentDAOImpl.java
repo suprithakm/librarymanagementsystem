@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.capgemini.librarymanagementsystem.beans.BooksInventory;
 import com.capgemini.librarymanagementsystem.beans.BooksRegistration;
+import com.capgemini.librarymanagementsystem.exception.LibraryManagementException;
 
 @Repository
 public class StudentDAOImpl implements StudentDAO{
@@ -21,7 +22,7 @@ public class StudentDAOImpl implements StudentDAO{
 	EntityManagerFactory entityManagerFactory;
 
 	@Override
-	public BooksRegistration requestBook(BooksInventory books, String userId) {
+	public BooksRegistration requestBook(BooksInventory books, String userId){
 
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
@@ -59,7 +60,7 @@ public class StudentDAOImpl implements StudentDAO{
 	}//end of requestBook
 
 	@Override
-	public boolean cancelRequest(String registrationId, String userId) {
+	public boolean cancelRequest(String registrationId, String userId) throws LibraryManagementException {
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
 		transaction.begin();
@@ -75,8 +76,7 @@ public class StudentDAOImpl implements StudentDAO{
 			transaction.commit();
 
 		}catch(Exception e) {
-			transaction.rollback();
-			return false;
+			throw new LibraryManagementException("Failed to cancel request");
 		}
 		entityManager.close();
 		return true;

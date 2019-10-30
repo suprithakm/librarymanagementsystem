@@ -23,6 +23,17 @@ public class BooksRegistration {
 	
 	@Column
 	private Date registrationDate;
+	
+	@Column
+	private String status;
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	//getters and setters
 	public String getRegistrationId() {

@@ -15,13 +15,7 @@ public class BooksInventory {
 	@Column
 	private String bookId;
 	
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
+	
 
 	@Column
 	private String bookName;
@@ -88,6 +82,14 @@ public class BooksInventory {
 
 	public void setYearOfPublication(Date yearOfPublication) {
 		this.yearOfPublication = yearOfPublication;
+	}
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 }

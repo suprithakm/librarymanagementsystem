@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.capgemini.librarymanagementsystem.beans.BooksInventory;
 import com.capgemini.librarymanagementsystem.beans.Users;
 import com.capgemini.librarymanagementsystem.dao.CommonDAO;
+import com.capgemini.librarymanagementsystem.exception.LibraryManagementException;
 import com.capgemini.librarymanagementsystem.validation.RegexInfo;
 
 @Service
@@ -20,7 +21,7 @@ public class CommonServiceImpl implements CommonService{
 	RegexInfo regex=new RegexInfo();
 	
 	@Override
-	public Users login(String user_id, String password) {
+	public Users login(String user_id, String password)throws LibraryManagementException {
 		if(regex.regexPassword(password) && regex.regexId(user_id)) {
 			return dao.login(user_id, password);
 		}else {
@@ -29,7 +30,7 @@ public class CommonServiceImpl implements CommonService{
 	}
 
 	@Override
-	public List<BooksInventory> searchBooks(String book_name) {
+	public List<BooksInventory> searchBooks(String book_name) throws LibraryManagementException {
 		if(regex.regexName(book_name)) {
 			return dao.searchBooks(book_name);
 		}else {
@@ -38,7 +39,7 @@ public class CommonServiceImpl implements CommonService{
 	}
 
 	@Override
-	public List<BooksInventory> showAllBooks() {
+	public List<BooksInventory> showAllBooks()throws LibraryManagementException {
 		return dao.showAllBooks();
 	}
 

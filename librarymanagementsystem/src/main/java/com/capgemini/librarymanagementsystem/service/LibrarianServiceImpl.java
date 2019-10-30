@@ -10,6 +10,7 @@ import com.capgemini.librarymanagementsystem.beans.BooksInventory;
 import com.capgemini.librarymanagementsystem.beans.BooksRegistration;
 import com.capgemini.librarymanagementsystem.beans.BooksTransaction;
 import com.capgemini.librarymanagementsystem.dao.LibrarianDAO;
+import com.capgemini.librarymanagementsystem.exception.LibraryManagementException;
 import com.capgemini.librarymanagementsystem.validation.RegexInfo;
 
 @Service
@@ -22,17 +23,17 @@ public class LibrarianServiceImpl implements LibrarianService{
 	RegexInfo regex=new RegexInfo();
 	
 	@Override
-	public boolean addBooks(BooksInventory books) {
+	public boolean addBooks(BooksInventory books) throws LibraryManagementException{
 		return dao.addBooks(books);
 	}
 
 	@Override
-	public boolean updateBooks(BooksInventory books) {
+	public boolean updateBooks(BooksInventory books) throws LibraryManagementException {
 		return dao.updateBooks(books);
 	}
 
 	@Override
-	public boolean deleteBooks(String bookId) {
+	public boolean deleteBooks(String bookId) throws LibraryManagementException {
 		if(regex.regexId(bookId)) {
 			return dao.deleteBooks(bookId);
 		}else {
@@ -41,7 +42,7 @@ public class LibrarianServiceImpl implements LibrarianService{
 	}
 
 	@Override
-	public List<BooksTransaction> showAllIssuedBooks(String userId) {
+	public List<BooksTransaction> showAllIssuedBooks(String userId) throws LibraryManagementException{
 		if(regex.regexId(userId)) {
 			return dao.showAllIssuedBooks(userId);
 		}else {
@@ -50,7 +51,7 @@ public class LibrarianServiceImpl implements LibrarianService{
 	}
 
 	@Override
-	public List<BooksRegistration> showAllRequests() {
+	public List<BooksRegistration> showAllRequests() throws LibraryManagementException {
 		return dao.showAllRequests();
 	}
 
@@ -64,12 +65,12 @@ public class LibrarianServiceImpl implements LibrarianService{
 	}
 
 	@Override
-	public BooksTransaction returnBook(String registrationId,Date returnDate) {
+	public BooksTransaction returnBook(String registrationId,Date returnDate) throws LibraryManagementException {
 		return dao.returnBook(registrationId, returnDate);
 	}
 
 	@Override
-	public List<BooksTransaction> showAllIssuedBooks() {
+	public List<BooksTransaction> showAllIssuedBooks() throws LibraryManagementException{
 		return dao.showAllIssuedBooks();
 	}
 

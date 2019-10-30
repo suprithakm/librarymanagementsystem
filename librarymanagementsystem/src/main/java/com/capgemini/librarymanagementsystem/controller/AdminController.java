@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.librarymanagementsystem.beans.BooksInventory;
 import com.capgemini.librarymanagementsystem.beans.Users;
+import com.capgemini.librarymanagementsystem.exception.LibraryManagementException;
 import com.capgemini.librarymanagementsystem.service.AdminService;
 import com.capgemini.librarymanagementsystem.service.CommonService;
 import com.capgemini.librarymanagementsystem.utility.Response;
@@ -31,66 +32,88 @@ public class AdminController {
 	
 	@GetMapping("login/{userId}/{password}")
 	public Users login(@PathVariable(name="userId") String userId,@PathVariable(name="password") String password) {
-		Users users=common.login(userId, password);
+		Users users=null;
+		try {
+			users = common.login(userId, password);
+		} catch (LibraryManagementException e) {
+			e.printStackTrace();
+		}
 		return users;
 	}//end of login
 	
 	@PostMapping("addUser")
 	public boolean addUser(@RequestBody Users user) {
-		if(admin.addUser(user)) {
-			return true;
-		}else {
-			return false;
+		try {
+			if(admin.addUser(user)) {
+				return true;
+			}
+		} catch (LibraryManagementException e) {
+			e.printStackTrace();
 		}
+		return false;
 	}//end of addUser
 	
 	
 	
 	@PutMapping("updateUser")
 	public boolean updateUser(@RequestBody Users user) {
-		if(admin.updateUser(user)) {
-			return true;
-		}else {
-			return false;
+		try {
+			if(admin.updateUser(user)) {
+				return true;
+			}
+		} catch (LibraryManagementException e) {
+			e.printStackTrace();
 		}		
+		return false;
 	}//end of updateUser
 	
 	
 	@DeleteMapping("deleteUser/{userId}")
 	public boolean deleteUser(@PathVariable(name="userId") String userId) {
-		if(admin.deleteUser(userId)) {
-			return true;
-		}else {
-			return false;
+		try {
+			if(admin.deleteUser(userId)) {
+				return true;
+			}
+		} catch (LibraryManagementException e) {
+			e.printStackTrace();
 		}
-		
+		return false;
 	}//end of delete User
 	
 	@GetMapping("searchBooks")
 	public List<BooksInventory> searchBook(String bookName) {
-		List<BooksInventory> bookList=common.searchBooks(bookName);
+		List<BooksInventory> bookList=null;
+		try {
+			bookList = common.searchBooks(bookName);
+		} catch (LibraryManagementException e) {
+			e.printStackTrace();
+		}
 		return bookList;
 	}//end of searchBooks
 
 
 	@GetMapping("showAllBooks")
 	public List<BooksInventory> showAllBooks() {
-		List<BooksInventory> bookList=common.showAllBooks();
+		List<BooksInventory> bookList=null; 
+		try {
+			bookList=common.showAllBooks();
+		} catch (LibraryManagementException e) {
+			e.printStackTrace();
+		}
 		return bookList;
 	}//end of showAllBooks
 	
 	@GetMapping("showAllUser")
 	public List<Users> showAllStd() {
-		List<Users> usersList=admin.showAllUser();
+		List<Users> usersList=null;
+		try {
+			usersList=admin.showAllUser();
+		} catch (LibraryManagementException e) {
+			e.printStackTrace();
+		}
 		return usersList;
 	}//end of showAllUser
 	
-	
-	@GetMapping("searchUser")
-	public Users searchUser(String userId) {
-		Users users=admin.searchUser(userId);
-		return users;
-	}//end of searchUserById
-	
+
 	
 }//end of AdminController

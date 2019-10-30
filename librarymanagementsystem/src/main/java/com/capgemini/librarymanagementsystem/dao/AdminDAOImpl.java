@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.capgemini.librarymanagementsystem.beans.Users;
+import com.capgemini.librarymanagementsystem.exception.LibraryManagementException;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO{
@@ -21,7 +22,7 @@ public class AdminDAOImpl implements AdminDAO{
 
 
 	@Override
-	public boolean addUser(Users users) {
+	public boolean addUser(Users users) throws LibraryManagementException {
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
 		boolean isadded=false;
@@ -31,7 +32,7 @@ public class AdminDAOImpl implements AdminDAO{
 			transaction.commit();
 			isadded=true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new LibraryManagementException("Failed to add");
 		}
 		entityManager.close();
 		return isadded;
@@ -39,79 +40,61 @@ public class AdminDAOImpl implements AdminDAO{
 
 
 	@Override
-	public boolean updateUser(Users users) {
+	public boolean updateUser(Users users) throws LibraryManagementException{
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
-		boolean isadded=false;
+		boolean isUpdate=false;
 		try {
 			transaction.begin();
 			entityManager.merge(users);
 			transaction.commit();
-			isadded=true;
+			isUpdate=true;
 		}catch(Exception e) {
-			transaction.rollback();
-			return isadded;
+			throw new LibraryManagementException("Failed to update");
 		}
 		entityManager.close();
-		return isadded;
+		return isUpdate;
 	}//end of update User
 
 	@Override
-	public boolean deleteUser(String userId) {
+	public boolean deleteUser(String userId) throws LibraryManagementException {
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
+		boolean isDelete=false;
 		try {
 			Users user=null;
 			user=entityManager.find(Users.class, userId);
-
 			transaction.begin();
 			entityManager.remove(user);
 			transaction.commit();
-
+			isDelete=true;
 		}catch(Exception e) {
-			transaction.rollback();
-			return false;
+			throw new LibraryManagementException("Failed to delete");
 		}
 		entityManager.close();
-		return true;
+		return isDelete;
 	}//end of deleteUser
 
 
 
 	@Override
-	public List<Users> showAllUser() {
+	public List<Users> showAllUser() throws LibraryManagementException{
 		EntityManager entityManager=entityManagerFactory.createEntityManager();
 		EntityTransaction transaction=entityManager.getTransaction();
 
 		String jpql="from Users where type != 'admin'";
 		Query query=entityManager.createQuery(jpql);
-		List<Users> arraylist=new ArrayList<Users>();
 		List<Users> allUser=null;
 		try {
 			allUser=query.getResultList();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new LibraryManagementException("Failed to add");
 		}
 		entityManager.close();
 		return allUser;
 
 	}//end of showAllUser
 
-
-
-
-	@Override
-	public Users searchUser(String userId) {
-		EntityManager entityManager=entityManagerFactory.createEntityManager();
-		Users user=null;
-		user=entityManager.find(Users.class, userId);
-		if(user!=null && user.getType()!="student") {
-		}else {
-			return user;
-		}
-		entityManager.close();
-		return user;
-	}//end of search User
 
 
 
